@@ -1,0 +1,56 @@
+<html ng-app>
+
+<head>
+    <title>Guide.me</title>
+    <link rel="stylesheet" href="css/bootstrap-cosmo.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="container">
+        <ng-include src="'header-logged-in.html'"></ng-include>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-md-4 ">
+                <div class="bs-component ">
+                    <div class="list-group" ng-init="_template = 'perfil.html'">
+                        <a href="#" ng-class="{'active': _template == 'perfil.html' }" ng-click="_template = 'perfil.html'" class="list-group-item list-group-item-action active">
+                            <i class="fa fa-edit"></i> Meu Perfil
+                        </a>
+                        <a href="#" ng-class="{'active': _template == 'contratos.html' }" ng-click="_template = 'contratos.html'" class="list-group-item list-group-item-action">
+                           <i class="fa fa-list"></i> Meus Contratos
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-8">
+                <ng-include src="_template"></ng-include>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <ng-include src="'footer.html'"></ng-include>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+    <!-- <script src="../../../../assets/js/vendor/popper.min.js"></script> -->
+    <!-- <script src="../../../../dist/js/bootstrap.min.js"></script> -->
+    <!-- <script src="../../../../assets/js/vendor/holder.min.js"></script> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;">
+        <defs>
+            <style type="text/css"></style>
+        </defs>
+        <text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text>
+    </svg>
+</body>
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+
+</html>

@@ -1,166 +1,84 @@
-<html ng-app>
+<form>
+   <fieldset>
+     <legend>
+        <i class="fa fa-edit"></i> Meu Perfil
+      </legend>
+         <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label for="exampleSelect1">Example select</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleSelect2">Example multiple select</label>
+      <select multiple="" class="form-control" id="exampleSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleTextarea">Example textarea</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputFile">File input</label>
+      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+      <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+    </div>
+    <fieldset class="form-group">
+      <legend>Radio buttons</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+          Option one is this and that—be sure to include why it's great
+        </label>
+      </div>
+      <div class="form-check">
+      <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+          Option two can be something else and selecting it will deselect option one
+        </label>
+      </div>
+      <div class="form-check disabled">
+      <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
+          Option three is disabled
+        </label>
+      </div>
+    </fieldset>
+    <fieldset class="form-group">
+      <legend>Checkboxes</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="" checked="">
+          Option one is this and that—be sure to include why it's great
+        </label>
+      </div>
+      <div class="form-check disabled">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="" disabled="">
+          Option two is disabled
+        </label>
+      </div>
+    </fieldset>
+    <button type="submit" class="btn btn-primary float-right">Submit</button>
 
-<head>
-    <title>Guide.me</title>
-    <link rel="stylesheet" href="css/bootstrap-cosmo.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-    <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/profile.css">
-</head>
-
-<body>
-    <!-- Header -->
-    <ng-include src="'header.html'"></ng-include>
-    <main role="main">
-        <div class="container">
-            <div class="row">
-                <div class="text-left col-sm-3">
-                    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="200" height="200" border="0" class="img-circle">
-                    <h3 class="media-heading">Joe Sixpack <small>USA</small></h3>
-                    <span><b>Skills: </b></span>
-                    <span class="label label-warning">HTML5/CSS</span>
-                    <span class="label label-info">Adobe CS 5.5</span>
-                    <span class="label label-info">Microsoft Office</span>
-                    <span class="label label-success">Windows XP, Vista, 7</span>
-                </div>
-                <div class="col-sm-9">
-                    <p class="text-left">
-                        <b>Bio: </b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores cupiditate inventore cum unde, veniam voluptatem ducimus a similique hic debitis! Non at accusantium, ad maxime porro quo dignissimos asperiores facere!
-                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, accusamus, vero! Distinctio ab repudiandae quo harum non esse pariatur, fugiat, placeat quas fuga ex quos quae unde veniam perspiciatis sequi?
-                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus amet cupiditate molestias architecto porro illum optio reprehenderit praesentium quasi laboriosam magni doloribus facere, quis eius veniam odit iste. Nihil, laboriosam!
-                    </p>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-4">
-                    <ul class="list-group">
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Cras justo odio</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Dapibus ac facilisis in</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Morbi leo risus</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Porta ac consectetur ac</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Vestibulum at eros</li>
-                    </ul>
-                </div>
-                <div class="col-sm-4">
-                    <ul class="list-group">
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Cras justo odio</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Dapibus ac facilisis in</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Morbi leo risus</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Porta ac consectetur ac</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Vestibulum at eros</li>
-                    </ul>
-                </div>
-                <div class="col-sm-4">
-                    <ul class="list-group">
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Cras justo odio</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Dapibus ac facilisis in</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Morbi leo risus</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Porta ac consectetur ac</li>
-                        <li class="list-group-item"> <i class="fa fa-check"></i> Vestibulum at eros</li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="rating-block">
-                        <h4>Average user rating</h4>
-                        <h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
-                        <small class="text-warning">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </small>
-                    </div>
-                </div>
-                <div class="col-sm-9">
-                    <div class="review-block">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <img src="https://placehold.it/60x60" class="img-rounded">
-                                <div class="review-block-name"><a href="#">nktailor</a></div>
-                                <div class="review-block-date">January 29, 2016
-                                    <br/>1 day ago</div>
-                            </div>
-                            <div class="col-sm-9">
-                                <small class="text-warning">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </small>
-                                <div class="review-block-title">this was nice in buy</div>
-                                <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <img src="https://placehold.it/60x60" class="img-rounded">
-                                <div class="review-block-name"><a href="#">nktailor</a></div>
-                                <div class="review-block-date">January 29, 2016
-                                    <br/>1 day ago</div>
-                            </div>
-                            <div class="col-sm-9">
-                                <small class="text-warning">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </small>
-                                <div class="review-block-title">this was nice in buy</div>
-                                <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <img src="https://placehold.it/60x60" class="img-rounded">
-                                <div class="review-block-name"><a href="#">nktailor</a></div>
-                                <div class="review-block-date">January 29, 2016
-                                    <br/>1 day ago</div>
-                            </div>
-                            <div class="col-sm-9">
-                                <small class="text-warning">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </small>
-                                <div class="review-block-title">this was nice in buy</div>
-                                <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Footer -->
-    <ng-include src="'footer.html'"></ng-include>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
-    <!-- <script src="../../../../assets/js/vendor/popper.min.js"></script> -->
-    <!-- <script src="../../../../dist/js/bootstrap.min.js"></script> -->
-    <!-- <script src="../../../../assets/js/vendor/holder.min.js"></script> -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;">
-        <defs>
-            <style type="text/css"></style>
-        </defs>
-        <text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text>
-    </svg>
-</body>
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/angular.min.js"></script>
-
-</html>
+     </legend>
+   </fieldset>
+</form>
