@@ -4,5 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_one :guide
   validates :name, presence: true, length: { minimum: 5 }
+
+  def guide?
+    self.guide.present? and self.guide.approved?
+  end
 end
