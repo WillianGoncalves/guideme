@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def guide?
     self.guide.present? and self.guide.approved?
   end
+
+  def guide_candidate?
+    self.guide.present? and self.guide.awaiting_for_approval?
+  end
 end

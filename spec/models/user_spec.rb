@@ -26,4 +26,24 @@ RSpec.describe User, type: :model do
       it { expect(user.guide?).to eq false }
     end
   end
+
+  describe 'is guide candidate?' do
+    context 'awaiting_for_approval' do
+      let!(:user) { Fabricate :user }
+      let!(:guide) { Fabricate :guide, status: "awaiting_for_approval", user: user }
+      it { expect(user.guide_candidate?).to eq true }
+    end
+
+    context 'approved' do
+      let!(:user) { Fabricate :user }
+      let!(:guide) { Fabricate :guide, status: "approved", user: user }
+      it { expect(user.guide_candidate?).to eq false }
+    end
+
+    context 'denied' do
+      let!(:user) { Fabricate :user }
+      let!(:guide) { Fabricate :guide, status: "denied", user: user }
+      it { expect(user.guide_candidate?).to eq false }
+    end
+  end
 end

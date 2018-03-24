@@ -1,0 +1,10 @@
+pt-BR:
+  users:
+    sign_out: Sair
+    sign_in: Entrar
+    sign_up: Criar conta
+    password:
+      new: Esqueceu sua senha?
+  guides:
+    new: Tornar-me um guia
+    create: Enviar para aprovação

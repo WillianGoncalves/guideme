@@ -1,0 +1,22 @@
+<%= render 'shared/errors', obj: @guide %>
+<div>
+  <%= form_for [current_user, @guide] do |f| %>
+    <div class="form-group">
+      <%= f.label :birthdate %>
+      <%= f.date_field :birthdate, autofocus: true, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :main_phone %>
+      <%= f.text_field :main_phone, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :secondary_phone %>
+      <%= f.text_field :secondary_phone, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :bio %>
+      <%= f.text_area :bio, class: 'form-control' %>
+    </div>
+    <%= f.submit t('guides.create'), class: 'btn btn-primary' %>
+  <% end %>
+</div>
