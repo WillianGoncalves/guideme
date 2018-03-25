@@ -18,6 +18,12 @@ RSpec.describe GuidesController, type: :controller do
       it { expect(response).to render_template :new }
     end
 
+    describe 'GET #edit' do
+      let!(:guide) { Fabricate :guide, user: user }
+      before { get :edit, params: { user_id: user, id: guide } }
+      it { expect(response).to render_template :edit }
+    end
+
     describe 'POST #create' do
       context 'with valid data' do
         let!(:guide) { Fabricate.build :guide }
@@ -31,6 +37,19 @@ RSpec.describe GuidesController, type: :controller do
         before { post :create, params: { user_id: user, guide: invalid_guide.attributes } }
         it { expect(response).to render_template :new }
         it { expect(user.reload.guide).to be nil }
+      end
+    end
+
+    describe 'PUT #update' do
+      context 'with valid data' do
+        let!(:guide) { Fabricate :guide, user: user }
+        let!(:updates) { Fabricate.build :guide }
+        before { put :update, params: { user_id: user, id: guide, guide: updates.attributes } }
+        it { expect(response).to redirect_to user_guide_path(user, guide) }
+        it { expect(guide.reload.academic_educations.count).to eq 1 }
+      end
+
+      context 'with invalid data' do
       end
     end
   end

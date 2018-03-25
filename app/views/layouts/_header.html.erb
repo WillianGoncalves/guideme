@@ -20,7 +20,9 @@
               <%= current_user.name %> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Minha conta*</a></li>
+              <li>
+                <%= link_to t('guides.show'), user_guide_path(current_user, current_user.guide) %>
+              </li>
               <li role="separator" class="divider"></li>
               <li>
                 <%= link_to t('users.sign_out'), destroy_user_session_path, method: :delete %>

@@ -1,4 +1,6 @@
 pt-BR:
+  actions:
+    edit: Editar
   users:
     sign_out: Sair
     sign_in: Entrar
@@ -7,4 +9,5 @@ pt-BR:
       new: Esqueceu sua senha?
   guides:
     new: Tornar-me um guia
+    show: Minha conta
     create: Enviar para aprovação

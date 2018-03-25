@@ -6,6 +6,24 @@ pt-BR:
         main_phone: Telefone principal
         secondary_phone: Telefone secundário
         bio: Sobre você
+        academic_educations: Formações acadêmicas
+        statuses:
+          awaiting_for_approval: Aguardando aprovação
+          approved: Aprovado
+          denied: Negado
+      academic_education:
+        course: Curso
+        institution: Instituição
+        finished_in: Data de conclusão
+        level: Nível
+        levels:
+          elementary: Nível básico
+          high_school: Ensino superior
+          technician: Técnico
+          bachelor: Bacharel
+          master: Mestre
+          doctor: Doutor
+          phd: PHD
 
     errors:
       messages:
