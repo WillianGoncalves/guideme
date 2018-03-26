@@ -10,7 +10,8 @@ end
 gem 'rails', '~> 5.1.5'
 gem 'pg', '~> 0.18'
 gem 'devise'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootswatch-rails'
 gem 'jquery-rails'
 gem 'devise-bootstrap-views'
 gem "cocoon"
