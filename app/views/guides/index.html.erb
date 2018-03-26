@@ -3,26 +3,23 @@
   <% @guides.each do | guide| %>
     <div class="col-md-4">
       <div class="card mb-4 box-shadow">
-        <%= gravatar_for(guide.user) %>
+
+        <div class="card-img-top">
+          <%= gravatar_for(guide.user) %>
+        </div>
+
         <div class="card-body">
-          <h4>
-            <b><%= guide.user.name %></b>
-            <small class="text-warning">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </small>
-          </h4>
+          <h4 class="card-title"> <%= guide.user.name %> </h4>
           <p class="card-text"><%= guide.bio %></p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> <%= link_to t('guides.see_profile'), guide_path(guide) %></a>
+              <%= link_to guide_path(guide), class: "btn btn-primary" do %>
+                <i class="fa fa-eye"></i><%= t('guides.see_profile') %>
+              <% end %>
             </div>
-            <small class="text-muted">9 mins</small>
           </div>
         </div>
+
       </div>
     </div>
   <% end %>

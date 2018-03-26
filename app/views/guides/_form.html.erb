@@ -29,9 +29,11 @@
           <%= render 'academic_education_fields', f: a %>
         <% end %>
 
-        <%= link_to_add_association f, :academic_educations, class: 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <% end %>
+        <div class="right">
+          <%= link_to_add_association f, :academic_educations, class: 'btn btn-default' do %>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <% end %>
+        </div>
       </div>
     </div>
 
