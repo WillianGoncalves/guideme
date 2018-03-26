@@ -1,0 +1,104 @@
+<html ng-app>
+
+<head>
+    <title>Guide.me</title>
+    <link rel="stylesheet" href="css/bootstrap-cosmo.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="container">
+        <ng-include src="'header-logged-in.html'"></ng-include>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+        <legend>
+            <i class="fa fa-clock"></i> Perfis Pendentes de Análise
+        </legend>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Usuário</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Opções</th>
+                    <th scope="col">Aprovar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td class="text-warning">Aguardando Análise</td>
+                    <td>
+                      <a href="perfil-detalhes.html">Ver detalhes</a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Aprovar</button> 
+                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Reprovar</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Jane Doe</td>
+                    <td class="text-danger">Reprovado</td>
+                    <td>
+                      <a href="perfil-detalhes.html">Ver detalhes</a>
+                    </td>
+                    <td>
+                        -
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>Jane Oliver</td>
+                    <td class="text-success">Aprovado</td>
+                    <td>
+                      <a href="perfil-detalhes.html">Ver detalhes</a>
+                    </td>
+                    <td>
+                       -
+                    </td>
+                </tr>
+                <tr>
+                    <td>John Taylor</td>
+                    <td class="text-success">Aprovado</td>
+                    <td>
+                      <a href="perfil-detalhes.html">Ver detalhes</a>
+                    </td>
+                    <td>
+                       -
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+            </div>
+            
+        </div>
+    </div>
+    <!-- Footer -->
+    <ng-include src="'footer.html'"></ng-include>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+    <!-- <script src="../../../../assets/js/vendor/popper.min.js"></script> -->
+    <!-- <script src="../../../../dist/js/bootstrap.min.js"></script> -->
+    <!-- <script src="../../../../assets/js/vendor/holder.min.js"></script> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;">
+        <defs>
+            <style type="text/css"></style>
+        </defs>
+        <text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text>
+    </svg>
+</body>
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+
+</html>
