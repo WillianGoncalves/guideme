@@ -1,8 +1,10 @@
+<% if current_user == @guide.user %>
 <div class="row">
   <div class="pull-right">
-    <%= link_to t('actions.edit'), edit_user_guide_path(current_user, current_user.guide), class: 'btn btn-primary' %>
+    <%= link_to t('actions.edit'), edit_user_guide_path(current_user, @guide), class: 'btn btn-primary' %>
   </div>
 </div>
+<% end %>
 
 <div class="row">
   <div class="text-left col-sm-3">
@@ -16,7 +18,7 @@
   </div>
   <div class="col-sm-9">
     <p class="text-left">
-      <b>Bio: </b> <%= current_user.guide.bio %>
+      <b>Bio: </b> <%= @guide.bio %>
     </p>
   </div>
 </div>

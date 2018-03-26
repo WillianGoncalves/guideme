@@ -12,6 +12,23 @@ RSpec.describe GuidesController, type: :controller do
     let!(:user) { Fabricate :user }
     before { sign_in user }
 
+    describe 'GET #index' do
+      context 'search by status' do
+        let!(:user1) { Fabricate :user }
+        let!(:user2) { Fabricate :user }
+        let!(:user3) { Fabricate :user }
+        let!(:user4) { Fabricate :user }
+        let!(:guide1) { Fabricate :guide, status: :awaiting_for_approval, user: user1 }
+        let!(:guide2) { Fabricate :guide, status: :awaiting_for_approval, user: user2 }
+        let!(:guide3) { Fabricate :guide, status: :approved, user: user3 }
+        let!(:guide4) { Fabricate :guide, status: :denied, user: user4 }
+
+        before { get :index, params: { status: "awaiting_for_approval" } }
+        it { expect(assigns(:guides)).to match_array [guide1, guide2] }
+        it { expect(response).to render_template :index }
+      end
+    end
+
     describe 'GET #new' do
       before { get :new, params: { user_id: user } }
       it { expect(assigns(:guide)).to be_a_new Guide }

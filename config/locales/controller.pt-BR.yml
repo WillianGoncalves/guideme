@@ -11,4 +11,6 @@ pt-BR:
   guides:
     new: Tornar-me um guia
     show: Minha conta
+    see_profile: Ver perfil
     create: Enviar para aprovação
+    pending_approvals: Aprovações pendentes

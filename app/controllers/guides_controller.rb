@@ -1,6 +1,12 @@
 class GuidesController < ApplicationController
   before_action :set_guide, only: [:show, :edit, :update]
 
+  def index
+    if params[:status].present?
+      @guides = Guide.where("status = ?", Guide.statuses[params[:status]])
+    end
+  end
+
   def show
   end
 
