@@ -36,7 +36,7 @@ class GuidesController < ApplicationController
 
   private
   def guide_params
-    params.require(:guide).permit(:birthdate, :main_phone, :secondary_phone, :bio, academic_educations_attributes: [:id, :course, :institution, :finished_in, :status])
+    params.require(:guide).permit(:birthdate, :main_phone, :secondary_phone, :bio, academic_educations_attributes: [:id, :course, :institution, :finished_in, :level])
   end
 
   def set_guide

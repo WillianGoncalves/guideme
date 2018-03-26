@@ -43,27 +43,42 @@ RSpec.describe GuidesController, type: :controller do
 
     describe 'POST #create' do
       context 'with valid data' do
+        let!(:ae) { Fabricate.build :bachelor }
+        let!(:academic_educations) { { academic_educations_attributes: [ ae.attributes ] } }
         let!(:guide) { Fabricate.build :guide }
-        before { post :create, params: { user_id: user, guide: guide.attributes } }
+        let!(:data) { guide.attributes.merge(academic_educations) }
+
+        before { post :create, params: { user_id: user, guide: data } }
         it { expect(response).to redirect_to user_guide_path(user, assigns(:guide)) }
-        it { expect(user.reload.guide.status).to eq "awaiting_for_approval" }
+        it { expect(user.guide.status).to eq "awaiting_for_approval" }
+        it { expect(user.guide.academic_educations.count).to eq 1 }
+        it { expect(user.guide.academic_educations.first.level).to eq 'bachelor' }
       end
 
       context 'with invalid data' do
+        let!(:ae) { Fabricate.build :bachelor }
+        let!(:academic_educations) { { academic_educations_attributes: [ ae.attributes ] } }
         let!(:invalid_guide) { Fabricate.build :invalid_guide }
-        before { post :create, params: { user_id: user, guide: invalid_guide.attributes } }
+        let!(:data) { invalid_guide.attributes.merge(academic_educations) }
+
+        before { post :create, params: { user_id: user, guide: data } }
         it { expect(response).to render_template :new }
-        it { expect(user.reload.guide).to be nil }
+        it { expect(user.guide).to be nil }
       end
     end
 
     describe 'PUT #update' do
       context 'with valid data' do
-        let!(:guide) { Fabricate :guide, user: user }
+        let!(:guide) { Fabricate :guide, status: :approved, user: user }
+
+        let!(:ae) { Fabricate.build :bachelor }
+        let!(:academic_educations) { { academic_educations_attributes: [ ae.attributes ] } }
         let!(:updates) { Fabricate.build :guide }
-        before { put :update, params: { user_id: user, id: guide, guide: updates.attributes } }
+        let!(:data) { updates.attributes.merge(academic_educations) }
+
+        before { put :update, params: { user_id: user, id: guide, guide: data } }
         it { expect(response).to redirect_to user_guide_path(user, guide) }
-        it { expect(guide.reload.academic_educations.count).to eq 1 }
+        it { expect(user.guide.academic_educations.count).to eq 1 }
       end
 
       context 'with invalid data' do
