@@ -68,20 +68,34 @@ RSpec.describe GuidesController, type: :controller do
     end
 
     describe 'PUT #update' do
-      context 'with valid data' do
-        let!(:guide) { Fabricate :guide, status: :approved, user: user }
+      before(:each) do
+        @guide = Fabricate :guide, status: :approved, user: user
+        expect(@guide.academic_educations.count).to eq 0
+        expect(@guide.status).to eq "approved"
+      end
 
+      context 'with valid data' do
         let!(:ae) { Fabricate.build :bachelor }
         let!(:academic_educations) { { academic_educations_attributes: [ ae.attributes ] } }
         let!(:updates) { Fabricate.build :guide }
         let!(:data) { updates.attributes.merge(academic_educations) }
 
-        before { put :update, params: { user_id: user, id: guide, guide: data } }
-        it { expect(response).to redirect_to user_guide_path(user, guide) }
-        it { expect(user.guide.academic_educations.count).to eq 1 }
+        before { put :update, params: { user_id: user, id: @guide, guide: data } }
+        it { expect(response).to redirect_to user_guide_path(user, @guide) }
+        it { expect(@guide.academic_educations.count).to eq 1 }
+        it { expect(@guide.reload.status).to eq "awaiting_for_approval" }
       end
 
       context 'with invalid data' do
+        let!(:ae) { Fabricate.build :bachelor }
+        let!(:academic_educations) { { academic_educations_attributes: [ ae.attributes ] } }
+        let!(:updates) { Fabricate.build :invalid_guide }
+        let!(:data) { updates.attributes.merge(academic_educations) }
+
+        before { put :update, params: { user_id: user, id: @guide, guide: data } }
+        it { expect(response).to render_template :edit }
+        it { expect(@guide.academic_educations.count).to eq 0 }
+        it { expect(@guide.reload.status).to eq "approved" }
       end
     end
   end

@@ -28,6 +28,7 @@ class GuidesController < ApplicationController
 
   def update
     if @guide.update(guide_params)
+      @guide.awaiting_for_approval!
       redirect_to user_guide_path(current_user, @guide)
     else
       render :edit
