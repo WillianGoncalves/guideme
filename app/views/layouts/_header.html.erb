@@ -21,7 +21,11 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to t('guides.show'), user_guide_path(current_user, current_user.guide) %>
+                <% if current_user.guide? or current_user.guide_candidate? %>
+                  <%= link_to t('guides.show'), user_guide_path(current_user, current_user.guide) %>
+                <% else %>
+                  <%= link_to t('users.edit'), edit_user_registration_path(current_user) %>
+                <% end %>
               </li>
               <li role="separator" class="divider"></li>
               <li>
