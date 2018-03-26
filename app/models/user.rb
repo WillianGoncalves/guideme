@@ -8,10 +8,10 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 5 }
 
   def guide?
-    self.guide.present? and self.guide.approved?
+    self.guide.present? and self.guide.persisted? and self.guide.approved?
   end
 
   def guide_candidate?
-    self.guide.present? and self.guide.awaiting_for_approval?
+    self.guide.present? and self.guide.persisted? and self.guide.awaiting_for_approval?
   end
 end
