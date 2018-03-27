@@ -1,6 +1,7 @@
 class Guide < ApplicationRecord
   belongs_to :user
   has_many :academic_educations
+  has_one :location
   validates :birthdate, presence: true
   validates :main_phone, presence: true, length: { minimum: 10 }
   validates :bio, presence: true, length: { minimum: 10 }

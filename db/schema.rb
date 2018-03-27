@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326112114) do
+ActiveRecord::Schema.define(version: 20180327120517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20180326112114) do
     t.bigint "user_id"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_guides_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "address", null: false
+    t.decimal "lat", precision: 15, scale: 10, null: false
+    t.decimal "lng", precision: 15, scale: 10, null: false
+    t.bigint "guide_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_id"], name: "index_locations_on_guide_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
