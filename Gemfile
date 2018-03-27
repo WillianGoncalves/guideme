@@ -16,7 +16,7 @@ gem 'jquery-rails'
 gem 'devise-bootstrap-views'
 gem "cocoon"
 gem 'font-awesome-sass', '~> 5.0.6'
-gem 'geokit-rails'
+gem 'geocoder'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
