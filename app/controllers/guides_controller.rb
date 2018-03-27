@@ -41,7 +41,7 @@ class GuidesController < ApplicationController
 
   def update_status
     if @guide.update(update_status_params)
-      flash[:success] = I18n.t('messages.guide_status_updated', status: I18n.t("activerecord.attributes.guide.statuses.#{@guide.status}"))
+      flash[:success] = I18n.t('messages.guide_status_updated', status: @guide.display_status)
     end
     redirect_to guides_path
   end

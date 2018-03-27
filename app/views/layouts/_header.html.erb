@@ -28,7 +28,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <% if current_user.guide? or current_user.guide_candidate? %>
+                <% if current_user.guide.present? %>
                   <%= link_to t('guides.show'), user_guide_path(current_user, current_user.guide) %>
                 <% else %>
                   <%= link_to t('users.edit'), edit_user_registration_path(current_user) %>
@@ -42,7 +42,7 @@
           </li>
         </ul>
 
-        <% unless current_user.guide? or current_user.guide_candidate? %>
+        <% unless current_user.guide.present? %>
           <%= link_to t('guides.new'), new_user_guide_path(current_user), class: "btn btn-primary navbar-btn navbar-right" %>
         <% end %>
       <% end %>

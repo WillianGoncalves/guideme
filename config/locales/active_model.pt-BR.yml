@@ -5,7 +5,7 @@ pt-BR:
         birthdate: Data de nascimento
         main_phone: Telefone principal
         secondary_phone: Telefone secundário
-        bio: Sobre você
+        bio: Biografia
         academic_educations: Formações acadêmicas
         statuses:
           awaiting_for_approval: Aguardando aprovação

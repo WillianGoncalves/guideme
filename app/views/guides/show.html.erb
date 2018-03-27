@@ -15,16 +15,28 @@
   <div class="text-left col-sm-3">
     <%= gravatar_for(current_user, { size: 200 }) %>
     <h3 class="media-heading"><%= current_user.name %> <small>USA</small></h3>
-    <span><b>Skills: </b></span>
-    <span class="label label-warning">HTML5/CSS</span>
-    <span class="label label-info">Adobe CS 5.5</span>
-    <span class="label label-info">Microsoft Office</span>
-    <span class="label label-success">Windows XP, Vista, 7</span>
+    <% if @guide.approved? %>
+      <span class="badge badge-primary"><%= @guide.display_status %></span>
+    <% elsif @guide.awaiting_for_approval? %>
+      <span class="badge badge-warning"><%= @guide.display_status %></span>
+    <% else %>
+      <span class="badge badge-danger"><%= @guide.display_status %></span>
+    <% end %>
   </div>
   <div class="col-sm-9">
+    <h3><%= t('activerecord.attributes.guide.bio') %></h3>
     <p class="text-left">
-      <b>Bio: </b> <%= @guide.bio %>
+      <%= @guide.bio %>
     </p>
+
+    <% if @guide.academic_educations.any? %>
+      <h3><%= t('activerecord.attributes.guide.academic_educations') %></h3>
+      <ul>
+        <% @guide.academic_educations.each do |ae| %>
+          <li><%= "#{ae.course} - #{ae.institution} - #{ae.display_level}" %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>
 <hr>
