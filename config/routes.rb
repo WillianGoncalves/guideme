@@ -4,5 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resources :guides, except: [:index]
   end
-  resources :guides, only: [:index, :show]
+  resources :guides, only: [:index, :show] do
+    member do
+      put 'update_status'
+    end
+  end
 end

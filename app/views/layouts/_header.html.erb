@@ -12,7 +12,9 @@
         <ul class="nav navbar-nav">
           <li>
             <% if current_user.admin? %>
-              <%= link_to t('guides.pending_approvals'), guides_path(status: :awaiting_for_approval)  %>
+              <%= link_to guides_path(status: :awaiting_for_approval) do %>
+                <%= t('guides.pending_approvals') %> (<%= awaiting_for_approval_count %>)
+              <% end %>
             <% end %>
           </li>
           <li><%= link_to "Link2", "/path2"  %></li>

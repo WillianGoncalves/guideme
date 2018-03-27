@@ -1,4 +1,7 @@
 pt-BR:
+  messages:
+    admin_required: Essa ação requer uma conta de administrador
+    guide_status_updated: "O status da conta foi atualizado para %{status}"
   date:
     abbr_day_names:
     - Dom

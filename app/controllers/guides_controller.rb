@@ -1,9 +1,13 @@
 class GuidesController < ApplicationController
-  before_action :set_guide, only: [:show, :edit, :update]
+  before_action :set_guide, only: [:show, :edit, :update, :update_status]
 
   def index
     if params[:status].present?
+      @title = I18n.t('guides.index.titles.awaiting_for_approval')
       @guides = Guide.where("status = ?", Guide.statuses[params[:status]])
+    else
+      @title = I18n.t('guides.index.titles.all')
+      @guides = Guide.all
     end
   end
 
@@ -35,12 +39,30 @@ class GuidesController < ApplicationController
     end
   end
 
+  def update_status
+    if @guide.update(update_status_params)
+      flash[:success] = I18n.t('messages.guide_status_updated', status: I18n.t("activerecord.attributes.guide.statuses.#{@guide.status}"))
+    end
+    redirect_to guides_path
+  end
+
   private
   def guide_params
     params.require(:guide).permit(:birthdate, :main_phone, :secondary_phone, :bio, academic_educations_attributes: [:id, :course, :institution, :finished_in, :level])
   end
 
+  def update_status_params
+    params.permit(:status)
+  end
+
   def set_guide
     @guide = Guide.find(params[:id])
+  end
+
+  def require_admin
+    unless current_user.admin?
+      flash[:danger] = I18n.t('errors.admin_required')
+      redirect_to root_path
+    end
   end
 end

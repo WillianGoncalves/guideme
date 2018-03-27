@@ -14,3 +14,9 @@ pt-BR:
     see_profile: Ver perfil
     create: Enviar para aprovação
     pending_approvals: Aprovações pendentes
+    approve: Aprovar
+    deny: Negar
+    index:
+      titles:
+        awaiting_for_approval: Guias aguardando aprovação
+        all: Guias

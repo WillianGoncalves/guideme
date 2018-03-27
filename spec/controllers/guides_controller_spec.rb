@@ -98,5 +98,31 @@ RSpec.describe GuidesController, type: :controller do
         it { expect(@guide.reload.status).to eq "approved" }
       end
     end
+
+    describe 'PUT #update_status' do
+      before(:each) do
+        @guide = Fabricate :guide, status: :awaiting_for_approval, user: user
+        expect(@guide.academic_educations.count).to eq 0
+        expect(@guide.status).to eq "awaiting_for_approval"
+      end
+
+      context 'approve a guide' do
+        before { put :update_status, params: { id: @guide, status: "approved" } }
+        it { expect(response).to redirect_to guides_path }
+        it { expect(@guide.reload.status).to eq "approved" }
+      end
+
+      context 'deny a guide' do
+        before { put :update_status, params: { id: @guide, status: "denied" } }
+        it { expect(response).to redirect_to guides_path }
+        it { expect(@guide.reload.status).to eq "denied" }
+      end
+
+      context 'if status not provided' do
+        before { put :update_status, params: { id: @guide, status: "" } }
+        it { expect(response).to redirect_to guides_path }
+        it { expect(@guide.reload.status).to eq "awaiting_for_approval" }
+      end
+    end
   end
 end

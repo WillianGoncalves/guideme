@@ -1,9 +1,14 @@
 <% if current_user == @guide.user %>
-<div class="row">
-  <div class="pull-right">
+  <div class="right">
     <%= link_to t('actions.edit'), edit_user_guide_path(current_user, @guide), class: 'btn btn-primary' %>
   </div>
-</div>
+<% end %>
+
+<% if current_user.admin? and @guide.awaiting_for_approval? %>
+  <div class="right">
+    <%= link_to t('guides.approve'), update_status_guide_path(@guide, status: "approved"), method: :put, class: 'btn btn-primary' %>
+    <%= link_to t('guides.deny'), update_status_guide_path(@guide, status: "denied"), method: :put, class: 'btn btn-danger' %>
+  </div>
 <% end %>
 
 <div class="row">
