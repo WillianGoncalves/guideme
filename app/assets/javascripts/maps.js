@@ -29,7 +29,7 @@ function placeMarkerAndPanTo(latLng, map) {
 
   $.ajax({
     url: "/guides/perform_search",
-    data: { coordinates: [latLng.lat(), latLng.lng()], radius: 2 }
+    data: { coordinates: [latLng.lat(), latLng.lng()], radius: $('#radius').val() }
   });
 }
 
