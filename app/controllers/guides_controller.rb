@@ -46,7 +46,10 @@ class GuidesController < ApplicationController
     redirect_to guides_path
   end
 
-  def search_by_location
+  def search
+  end
+
+  def perform_search
     @guides = Location.near(params[:coordinates], params[:radius]).map(&:guide)
     respond_to do |format|
       format.js { render partial: "guides/result" }

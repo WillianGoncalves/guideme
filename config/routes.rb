@@ -9,7 +9,8 @@ Rails.application.routes.draw do
       put 'update_status'
     end
     collection do
-      get 'search_by_location'
+      get 'search'
+      get 'perform_search'
     end
   end
 end

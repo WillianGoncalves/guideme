@@ -135,7 +135,12 @@ RSpec.describe GuidesController, type: :controller do
       end
     end
 
-    describe 'GET #search_by_location' do
+    describe 'GET #search' do
+      before { get :search }
+      it { expect(response).to render_template :search }
+    end
+
+    describe 'GET #perform_search' do
       let!(:near_user) { Fabricate :user }
       let!(:near_location) { Location.new(street: "Rua Manlio de Araujo Silva", district: "Olaria", city: "Nova Friburgo", state: "RJ") }
       let!(:near_guide) { Fabricate :guide, location: near_location, user: near_user }
@@ -145,7 +150,7 @@ RSpec.describe GuidesController, type: :controller do
       let!(:selected_location) { { coordinates: [-22.3049091, -42.5405217], radius: 2 } }
 
       # [-22.3049091, -42.5405217] = Rua Presidente Getulio Vargas, Olaria, Nova Friburgo, RJ
-      before { get :search_by_location, xhr: true, params: { format: :js, coordinates: [-22.3049091, -42.5405217], radius: 2 } }
+      before { get :perform_search, xhr: true, params: { format: :js, coordinates: [-22.3049091, -42.5405217], radius: 2 } }
       it { expect(response).to render_template(partial: "guides/_result") }
       it { expect(assigns(:guides)).to match_array [near_guide] }
     end

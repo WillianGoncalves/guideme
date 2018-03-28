@@ -16,6 +16,7 @@ pt-BR:
     pending_approvals: Aprovações pendentes
     approve: Aprovar
     deny: Negar
+    search: Encontre um guia
     index:
       titles:
         awaiting_for_approval: Guias aguardando aprovação

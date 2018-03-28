@@ -1,3 +1,6 @@
+//= require underscore
+//= require gmaps/google
+
 var marker;
 
 function initializeMap() {
@@ -23,6 +26,11 @@ function placeMarkerAndPanTo(latLng, map) {
     map: map
   });
   map.panTo(latLng);
+
+  $.ajax({
+    url: "/guides/perform_search",
+    data: { coordinates: [latLng.lat(), latLng.lng()], radius: 2 }
+  });
 }
 
 initializeMap();
