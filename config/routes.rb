@@ -8,5 +8,8 @@ Rails.application.routes.draw do
     member do
       put 'update_status'
     end
+    collection do
+      get 'search_by_location'
+    end
   end
 end

@@ -46,6 +46,13 @@ class GuidesController < ApplicationController
     redirect_to guides_path
   end
 
+  def search_by_location
+    @guides = Location.near(params[:coordinates], params[:radius]).map(&:guide)
+    respond_to do |format|
+      format.js { render partial: "guides/result" }
+    end
+  end
+
   private
   def guide_params
     params.require(:guide).permit(:birthdate, :main_phone, :secondary_phone, :bio, academic_educations_attributes: [:id, :course, :institution, :finished_in, :level])
