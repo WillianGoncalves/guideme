@@ -54,9 +54,10 @@ RSpec.describe GuidesController, type: :controller do
     describe 'POST #create' do
       context 'with valid data' do
         let!(:ae) { Fabricate.build :bachelor }
+        let!(:location) { { location_attributes: (Fabricate.build :location).attributes } }
         let!(:academic_educations) { { academic_educations_attributes: [ ae.attributes ] } }
         let!(:guide) { Fabricate.build :guide }
-        let!(:data) { guide.attributes.merge(academic_educations) }
+        let!(:data) { guide.attributes.merge(academic_educations).merge(location) }
 
         before { post :create, params: { user_id: user, guide: data } }
         it { expect(response).to redirect_to user_guide_path(user, assigns(:guide)) }
@@ -79,7 +80,8 @@ RSpec.describe GuidesController, type: :controller do
 
     describe 'PUT #update' do
       before(:each) do
-        @guide = Fabricate :guide, status: :approved, user: user
+        location = Fabricate.build :location
+        @guide = Fabricate :guide, status: :approved, user: user, location: location
         expect(@guide.academic_educations.count).to eq 0
         expect(@guide.status).to eq "approved"
       end
@@ -147,12 +149,14 @@ RSpec.describe GuidesController, type: :controller do
       let!(:far_user) { Fabricate :user }
       let!(:far_location) { Location.new(street: "Rua Juca Barroso", district: "Lumiar", city: "Nova Friburgo", state: "RJ") }
       let!(:far_guide) { Fabricate :guide, location: far_location, user: far_user }
-      let!(:selected_location) { { coordinates: [-22.3049091, -42.5405217], radius: 2 } }
+      let!(:current_user_location) { Location.new(street: "Rua Manlio de Araujo Silva", district: "Olaria", city: "Nova Friburgo", state: "RJ") }
+      let!(:current_user_guide) { Fabricate :guide, location: current_user_location, user: user }
 
       # [-22.3049091, -42.5405217] = Rua Presidente Getulio Vargas, Olaria, Nova Friburgo, RJ
       before { get :perform_search, xhr: true, params: { format: :js, coordinates: [-22.3049091, -42.5405217], radius: 2 } }
       it { expect(response).to render_template(partial: "guides/_result") }
       it { expect(assigns(:guides)).to match_array [near_guide] }
+      it { expect(assigns(:guides)).to_not include current_user_guide }
     end
   end
 end
