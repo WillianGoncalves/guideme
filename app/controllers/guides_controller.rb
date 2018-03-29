@@ -24,6 +24,7 @@ class GuidesController < ApplicationController
   def create
     @guide = current_user.build_guide(guide_params)
     if @guide.save
+      flash[:warning] = I18n.t('messages.blank_lat_lng') unless @guide.location.latitude and @guide.location.longitude
       redirect_to user_guide_path(current_user, @guide)
     else
       render :new
@@ -33,6 +34,7 @@ class GuidesController < ApplicationController
   def update
     if @guide.update(guide_params)
       @guide.awaiting_for_approval!
+      flash[:warning] = I18n.t('messages.blank_lat_lng') unless @guide.location.latitude and @guide.location.longitude
       redirect_to user_guide_path(current_user, @guide)
     else
       render :edit
@@ -58,7 +60,15 @@ class GuidesController < ApplicationController
 
   private
   def guide_params
-    params.require(:guide).permit(:birthdate, :main_phone, :secondary_phone, :bio, academic_educations_attributes: [:id, :course, :institution, :finished_in, :level])
+    params.require(:guide)
+      .permit(
+        :birthdate, 
+        :main_phone, 
+        :secondary_phone, 
+        :bio, 
+        academic_educations_attributes: [:id, :course, :institution, :finished_in, :level],
+        location_attributes: [:id, :street, :district, :city, :state]
+    )
   end
 
   def update_status_params

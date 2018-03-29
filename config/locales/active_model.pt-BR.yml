@@ -7,6 +7,7 @@ pt-BR:
         secondary_phone: Telefone secundário
         bio: Biografia
         academic_educations: Formações acadêmicas
+        location: Endereço
         statuses:
           awaiting_for_approval: Aguardando aprovação
           approved: Aprovado
@@ -24,6 +25,11 @@ pt-BR:
           master: Mestre
           doctor: Doutor
           phd: PHD
+      location:
+        street: Rua
+        district: Bairro
+        city: Cidade
+        state: Estado
 
     errors:
       messages:

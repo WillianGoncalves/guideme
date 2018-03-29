@@ -2,6 +2,7 @@ pt-BR:
   messages:
     admin_required: Essa ação requer uma conta de administrador
     guide_status_updated: "O status da conta foi atualizado para %{status}"
+    blank_lat_lng: Não foi possível determinar sua localização com base no seu endereço. Atualize seu endereço para que você possa ser encontrado pelas buscas.
   date:
     abbr_day_names:
     - Dom

@@ -9,6 +9,7 @@ class Guide < ApplicationRecord
   enum status: [:awaiting_for_approval, :approved, :denied]
 
   accepts_nested_attributes_for :academic_educations, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :location, reject_if: :all_blank, allow_destroy: true
 
   def display_status
     I18n.t("activerecord.attributes.guide.statuses.#{self.status}")

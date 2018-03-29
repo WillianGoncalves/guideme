@@ -24,7 +24,7 @@
         <a class="nav-link" data-toggle="tab" href="#academic_educations"><%= t('activerecord.attributes.guide.academic_educations') %></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#profile">Profile</a>
+        <a class="nav-link" data-toggle="tab" href="#location"><%= t('activerecord.attributes.guide.location') %></a>
       </li>
     </ul>
 
@@ -35,15 +35,17 @@
           <%= render 'academic_education_fields', f: a %>
         <% end %>
 
-        <div class="right">
+        <div class="right margin-top">
           <%= link_to_add_association f, :academic_educations, class: 'btn btn-default' do %>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           <% end %>
         </div>
       </div>
 
-      <div class="tab-pane fade" id="profile">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+      <div class="tab-pane fade" id="location">
+        <%= f.fields_for :location, @guide.location || Location.new do |a| %>
+          <%= render 'location_form', f: a %>
+        <% end %>
       </div>
     </div>
 
