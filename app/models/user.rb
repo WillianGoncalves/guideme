@@ -12,6 +12,6 @@ class User < ApplicationRecord
   end
 
   def guide_candidate?
-    self.guide.present? and self.guide.persisted? and self.guide.awaiting_for_approval?
+    self.guide.present? and self.guide.persisted? and (self.guide.awaiting_for_approval? or self.guide.denied?)
   end
 end
