@@ -1,6 +1,5 @@
 class Location < ApplicationRecord
   geocoded_by :full_address
-  after_validation :geocode
 
   belongs_to :guide
   validates :street, presence: true, length: { minimum: 5 }

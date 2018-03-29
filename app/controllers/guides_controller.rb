@@ -24,7 +24,7 @@ class GuidesController < ApplicationController
   def create
     @guide = current_user.build_guide(guide_params)
     if @guide.save
-      flash[:warning] = I18n.t('messages.blank_lat_lng') unless @guide.location.latitude and @guide.location.longitude
+      set_location
       redirect_to user_guide_path(current_user, @guide)
     else
       render :new
@@ -34,7 +34,7 @@ class GuidesController < ApplicationController
   def update
     if @guide.update(guide_params)
       @guide.awaiting_for_approval!
-      flash[:warning] = I18n.t('messages.blank_lat_lng') unless @guide.location.latitude and @guide.location.longitude
+      set_location
       redirect_to user_guide_path(current_user, @guide)
     else
       render :edit
@@ -49,6 +49,17 @@ class GuidesController < ApplicationController
   end
 
   def search
+    @locations = Location.all
+    @hash = Gmaps4rails.build_markers(@locations) do |location, marker|
+      marker.lat location.latitude
+      marker.lng location.longitude
+      marker.picture({
+        #url: ActionController::Base.helpers.asset_path('guide.png'),
+        url: helpers.asset_path('guide.png'),
+        width: "32",
+        height: "32"
+      })
+    end
   end
 
   def perform_search
@@ -83,6 +94,16 @@ class GuidesController < ApplicationController
     unless current_user.admin?
       flash[:danger] = I18n.t('errors.admin_required')
       redirect_to root_path
+    end
+  end
+
+  def set_location
+    latLng = Geocoder::coordinates(@guide.location.full_address)
+    if latLng.nil?
+      flash[:warning] = I18n.t('messages.blank_lat_lng')
+      @guide.location.update(latitude: nil, longitude: nil)
+    else
+      @guide.location.update(latitude: latLng.first, longitude: latLng.last)
     end
   end
 end
