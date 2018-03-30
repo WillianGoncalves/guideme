@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :guide
+  has_many :contracts
   validates :name, presence: true, length: { minimum: 5 }
 
   def guide?

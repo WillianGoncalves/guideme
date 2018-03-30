@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { is_expected.to have_one :guide }
+  it { is_expected.to have_many :contracts }
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_presence_of :password }
   it { is_expected.to validate_presence_of :name }
@@ -43,7 +44,7 @@ RSpec.describe User, type: :model do
     context 'denied' do
       let!(:user) { Fabricate :user }
       let!(:guide) { Fabricate :guide, status: "denied", user: user }
-      it { expect(user.guide_candidate?).to eq false }
+      it { expect(user.guide_candidate?).to eq true }
     end
   end
 end
