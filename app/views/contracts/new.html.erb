@@ -1,0 +1,18 @@
+<div>
+  <%= form_for [@guide, @guide.contracts.build] do |f| %>
+    <div class="form-group">
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, autofocus: true, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :goals %>
+      <%= f.text_area :goals, class: 'form-control' %>
+    </div>
+
+    <%= f.submit t('contracts.create'), class: 'btn btn-primary' %>
+  <% end %>
+</div>

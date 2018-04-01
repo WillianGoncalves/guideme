@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   devise_for :users
+  devise_scope :users do
+    resources :contracts, only: [:index]
+  end
+
   root 'welcome#index'
+
   resources :users, only: [] do
     resources :guides, except: [:index]
   end
+
   resources :guides, only: [:index, :show] do
     member do
       put 'update_status'
@@ -12,5 +18,6 @@ Rails.application.routes.draw do
       get 'search'
       get 'perform_search'
     end
+    resources :contracts, only: [:new, :create]
   end
 end

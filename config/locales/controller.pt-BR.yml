@@ -25,3 +25,6 @@ pt-BR:
       titles:
         awaiting_for_approval: Guias aguardando aprovação
         all: Guias
+  contracts:
+    new: Contratar
+    create: Enviar para análise

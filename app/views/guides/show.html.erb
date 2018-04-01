@@ -11,6 +11,12 @@
   </div>
 <% end %>
 
+<% if current_user != @guide.user %>
+  <div class="right">
+    <%= link_to t('contracts.new'), new_guide_contract_path(@guide), class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="text-left col-sm-3">
     <%= gravatar_for(@guide.user, { size: 200 }) %>
