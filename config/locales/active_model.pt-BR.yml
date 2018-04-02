@@ -73,3 +73,9 @@ pt-BR:
         header:
           one: 'Não foi possível gravar %{model}: 1 erro'
           other: 'Não foi possível gravar %{model}: %{count} erros'
+
+      models:
+        contract:
+          attributes:
+            start_date:
+              invalid_interval: "A data de início deve ser anterior à data de fim"
