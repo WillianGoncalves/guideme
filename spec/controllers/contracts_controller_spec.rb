@@ -11,17 +11,25 @@ RSpec.describe ContractsController, type: :controller do
       @guide = Fabricate :guide, status: :approved, user: another_user, location: location
     end
 
+    describe 'GET #index' do
+      let!(:contract) { Fabricate :contract, guide: @guide, contractor: user }
+      before { get :index }
+      it { expect(response).to render_template :index }
+      it { expect(assigns(:contracts)).to match_array [ contract ] }
+    end
+
     describe 'GET #new' do
       before { get :new, params: { guide_id: @guide } }
       it { expect(response).to render_template :new }
       it { expect(assigns(:guide)).to eq @guide }
+      it { expect(assigns(:contract)).to be_a_new Contract }
     end
 
     describe 'POST #create' do
       context 'with valid data' do
         let!(:contract) { Fabricate.build :contract }
         before { post :create, params: { guide_id: @guide, contract: contract.attributes } }
-        it { expect(response).to redirect_to contracts_path(user) }
+        it { expect(response).to redirect_to contracts_path }
         it { expect(@guide.contracts.count).to eq 1 }
         it { expect(user.contracts.count).to eq 1 }
       end

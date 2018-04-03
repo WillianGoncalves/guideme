@@ -1,5 +1,7 @@
+<%= render 'shared/errors', obj: @contract %>
+
 <div>
-  <%= form_for [@guide, @guide.contracts.build] do |f| %>
+  <%= form_for [@guide, @contract] do |f| %>
     <div class="form-group">
       <%= f.label :start_date %>
       <%= f.date_field :start_date, autofocus: true, class: 'form-control' %>

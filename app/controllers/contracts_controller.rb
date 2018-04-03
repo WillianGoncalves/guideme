@@ -1,6 +1,11 @@
 class ContractsController < ApplicationController
+  def index
+    @contracts = current_user.contracts
+  end
+
   def new
     @guide = Guide.find(params[:guide_id])
+    @contract = Contract.new
   end
 
   def create
@@ -9,7 +14,7 @@ class ContractsController < ApplicationController
     @contract.contractor = current_user
     if @contract.save
       flash[:success] = I18n.t('messages.contract_created')
-      redirect_to contracts_path(current_user)
+      redirect_to contracts_path
     else
       render :new
     end
