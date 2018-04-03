@@ -6,7 +6,7 @@ class ContractsController < ApplicationController
   def create
     guide = Guide.find(params[:guide_id])
     @contract = guide.contracts.build(create_params)
-    @contract.user = current_user
+    @contract.contractor = current_user
     if @contract.save
       flash[:success] = I18n.t('messages.contract_created')
       redirect_to contracts_path(current_user)

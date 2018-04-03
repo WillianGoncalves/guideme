@@ -1,7 +1,7 @@
 class Contract < ApplicationRecord
   belongs_to :guide
-  belongs_to :user
-  validates_presence_of :guide, :user, :start_date, :end_date
+  belongs_to :contractor, class_name: "User", foreign_key: "user_id"
+  validates_presence_of :guide, :contractor, :start_date, :end_date
   validates :goals, presence: true, length: { minimum: 10 }
   validate :start_date_must_be_before_end_date, :contracts_can_not_conflict
 
