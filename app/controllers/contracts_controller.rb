@@ -1,7 +1,5 @@
 class ContractsController < ApplicationController
-  def index
-    @contracts = current_user.contracts
-  end
+  def index; end
 
   def new
     @guide = Guide.find(params[:guide_id])

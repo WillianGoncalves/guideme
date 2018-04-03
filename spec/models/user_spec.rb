@@ -47,4 +47,22 @@ RSpec.describe User, type: :model do
       it { expect(user.guide_candidate?).to eq true }
     end
   end
+
+  describe 'contracts' do
+    let!(:user) { Fabricate :user }
+    let!(:guide) { Fabricate :guide, status: :approved, user: user }
+
+    let!(:current_user) { Fabricate :user }
+    let!(:current_user_guide) { Fabricate :guide, status: :approved, user: current_user }
+
+    let!(:first_contract) { Fabricate :contract, guide: guide, contractor: current_user }
+    let!(:second_contract) { Fabricate :contract, guide: current_user_guide, contractor: user }
+
+    context 'as contractor' do
+      it { expect(current_user.contracts_as_contractor).to match_array [ first_contract ] }
+    end
+    context 'as guide' do
+      it { expect(current_user.contracts_as_guide).to match_array [ second_contract ] }
+    end
+  end
 end

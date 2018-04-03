@@ -15,4 +15,12 @@ class User < ApplicationRecord
   def guide_candidate?
     self.guide.present? and self.guide.persisted? and (self.guide.awaiting_for_approval? or self.guide.denied?)
   end
+
+  def contracts_as_contractor
+    self.contracts
+  end
+
+  def contracts_as_guide
+    Contract.where("guide_id = ?", self.guide.id)
+  end
 end

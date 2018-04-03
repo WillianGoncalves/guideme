@@ -26,5 +26,15 @@ pt-BR:
         awaiting_for_approval: Guias aguardando aprovação
         all: Guias
   contracts:
+    index:
+      title: Meus contratos
+      as_contractor: Como contratante
+      as_guide: Como guia
+      locale: Local
+      period: Período
+      guide: Guia
+      goals: Objetivos
+      contractor: Contratante
+      price: Valor
     new: Contratar
     create: Enviar para análise
