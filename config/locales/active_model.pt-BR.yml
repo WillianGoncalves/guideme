@@ -79,3 +79,4 @@ pt-BR:
           attributes:
             start_date:
               invalid_interval: "A data de início deve ser anterior à data de fim"
+              date_conflict: "O guia não está disponível nesta data"
