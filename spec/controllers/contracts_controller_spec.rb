@@ -15,7 +15,6 @@ RSpec.describe ContractsController, type: :controller do
       let!(:contract) { Fabricate :contract, guide: @guide, contractor: user }
       before { get :index }
       it { expect(response).to render_template :index }
-      it { expect(assigns(:contracts)).to match_array [ contract ] }
     end
 
     describe 'GET #new' do
@@ -30,6 +29,7 @@ RSpec.describe ContractsController, type: :controller do
         let!(:contract) { Fabricate.build :contract }
         before { post :create, params: { guide_id: @guide, contract: contract.attributes } }
         it { expect(response).to redirect_to contracts_path }
+        it { expect(assigns(:contract).status).to eq "under_analysis" }
         it { expect(@guide.contracts.count).to eq 1 }
         it { expect(user.contracts.count).to eq 1 }
       end

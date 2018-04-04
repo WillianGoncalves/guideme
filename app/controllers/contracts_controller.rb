@@ -11,6 +11,7 @@ class ContractsController < ApplicationController
     @contract = guide.contracts.build(create_params)
     @contract.contractor = current_user
     if @contract.save
+      @contract.under_analysis!
       flash[:success] = I18n.t('messages.contract_created')
       redirect_to contracts_path
     else
