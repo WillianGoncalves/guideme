@@ -9,6 +9,10 @@
         <div class="card-body">
           <div class="card-text">
 
+            <div class="right">
+              <%= badge_for_status(contract) %>
+            </div>
+
             <div class="row">
               <!--locale-->
               <div class="col-sm-6">
@@ -25,16 +29,25 @@
             </div>
 
             <!--guide-->
-            <p>
-              <h6><%= t('contracts.index.guide') %></h6>
+            <h6><%= t('contracts.index.guide') %></h6>
+            <p class="one-line-text">
               <%= link_to contract.guide.user.name, guide_path(contract.guide) %>
             </p>
 
             <!--goals-->
-            <p>
-              <h6><%= t('contracts.index.goals') %></h6>
+            <h6><%= t('contracts.index.goals') %></h6>
+            <p class="one-line-text">
               <%= contract.goals %>
             </p>
+
+            <div class="margin-top">
+              <%= link_to t('contracts.show.details'), contract_path(contract), class: 'btn btn-default' %>
+
+              <% if contract.waiting_confirmation? %>
+                <%= link_to t('contracts.confirm'), contract_path(contract), class: 'btn btn-primary' %>
+                <%= link_to t('contracts.cancel'), contract_path(contract), class: 'btn btn-danger pull-right' %>
+              <% end %>
+            </div>
 
           </div>
         </div>
@@ -52,6 +65,10 @@
         <div class="card-body">
           <div class="card-text">
 
+            <div class="right">
+              <%= badge_for_status(contract) %>
+            </div>
+
             <div class="row">
               <!--locale-->
               <div class="col-sm-6">
@@ -68,20 +85,24 @@
             </div>
 
             <!--contractor-->
-            <p>
-              <h6><%= t('contracts.index.contractor') %></h6>
+            <h6><%= t('contracts.index.contractor') %></h6>
+            <p class="one-line-text">
               <%= contract.contractor.name %>
             </p>
 
             <!--goals-->
-            <p>
-              <h6><%= t('contracts.index.goals') %></h6>
+            <h6><%= t('contracts.index.goals') %></h6>
+            <p class="one-line-text">
               <%= contract.goals %>
             </p>
 
-            <% if contract.under_analysis? %>
-              <%= link_to t('contracts.show.link'), contract_path(contract), class: 'btn btn-primary' %>
-            <% end %>
+            <div class="margin-top">
+              <%= link_to t('contracts.show.details'), contract_path(contract), class: 'btn' %>
+
+              <% if contract.under_analysis? %>
+                <%= link_to t('contracts.show.analyze'), contract_path(contract), class: 'btn btn-primary' %>
+              <% end %>
+            </div>
 
           </div>
         </div>

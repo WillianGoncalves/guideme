@@ -37,7 +37,8 @@ pt-BR:
       contractor: Contratante
       price: Valor
     show:
-      link: Avaliar
+      details: Detalhes
+      analyze: Analisar
       contractor: Contratante
       guide: Guia
       goals: Objetivos
@@ -48,3 +49,5 @@ pt-BR:
     create: Enviar para análise
     accept: Aceitar
     reject: Rejeitar
+    confirm: Confirmar
+    cancel: Cancelar

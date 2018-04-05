@@ -4,3 +4,9 @@
 .center { text-align: center; }
 a, a:hover, a:visited, a:active { text-decoration: none; }
 .btn i { margin-right: 10px; }
+
+.one-line-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

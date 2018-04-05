@@ -35,6 +35,15 @@ pt-BR:
         end_date: Data de fim
         goals: Objetivos
         price: Preço
+        statuses:
+          under_analysis: Em análise
+          rejected: Rejeitado
+          waiting_confirmation: Aguardando confirmação
+          canceled: Cancelado
+          waiting_payment: Aguardando pagamento
+          expired: Expirado
+          paid: Pago
+          finished: Concluído
 
     errors:
       messages:

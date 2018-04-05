@@ -21,4 +21,8 @@ class Contract < ApplicationRecord
       errors.add(:start_date, :date_conflict)
     end
   end
+
+  def display_status
+    I18n.t("activerecord.attributes.contract.statuses.#{self.status}")
+  end
 end
