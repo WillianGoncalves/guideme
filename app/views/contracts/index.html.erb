@@ -45,7 +45,7 @@
 
               <% if contract.waiting_confirmation? %>
                 <%= link_to t('contracts.confirm'), contract_path(contract), class: 'btn btn-primary' %>
-                <%= link_to t('contracts.cancel'), contract_path(contract), class: 'btn btn-danger pull-right' %>
+                <%= link_to t('contracts.cancel'), cancel_contract_path(contract), class: 'btn btn-danger pull-right' %>
               <% end %>
             </div>
 

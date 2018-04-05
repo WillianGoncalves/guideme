@@ -103,5 +103,31 @@ RSpec.describe ContractsController, type: :controller do
         it { expect(assigns(:contract).status).to eq "under_analysis" }
       end
     end
+
+    describe 'GET #cancel' do
+      let!(:guide) { Fabricate :guide }
+      context 'when the current user is the contractor' do
+        context 'and contract is waiting confirmation' do
+          let!(:contract) { Fabricate :contract, guide: guide, contractor: user, status: :waiting_confirmation }
+          before { get :cancel, params: { id: contract } }
+          it { expect(response).to redirect_to contract_path(contract) }
+          it { expect(assigns(:contract).status).to eq "canceled" }
+        end
+        context 'and contract is not waiting confirmation' do
+          let!(:contract) { Fabricate :contract, guide: guide, contractor: user, status: :under_analysis }
+          before { get :cancel, params: { id: contract } }
+          it { expect(response).to redirect_to contracts_path }
+          it { expect(assigns(:contract).status).to eq "under_analysis" }
+        end
+      end
+
+      context 'when the current user is not the contractor' do
+        let!(:guide) { Fabricate :guide }
+        let!(:contract) { Fabricate :contract, guide: guide, contractor: contractor, status: :under_analysis }
+        before { get :cancel, params: { id: contract } }
+        it { expect(response).to redirect_to root_path }
+        it { expect(assigns(:contract).status).to eq "under_analysis" }
+      end
+    end
   end
 end

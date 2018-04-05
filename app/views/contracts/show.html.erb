@@ -45,6 +45,10 @@
   <p><%= @contract.goals %></p>
 </div>
 
+<div>
+  <%= badge_for_status(@contract) %>
+</div>
+
 <% if current_user.is_guide_of?(@contract) and @contract.under_analysis? %>
   <div class="card">
     <div class="card-body">

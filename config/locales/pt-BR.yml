@@ -7,6 +7,7 @@ pt-BR:
       created: Sua solicitação foi enviada. Por favor, aguarde uma resposta do guia.
       guide_or_contractor_required: Apenas o guia ou o contratante podem realizar essa ação
       guide_required: Apenas o guia pode realizar essa ação
+      contractor_required: Apenas o contratante pode realizar essa ação
   date:
     abbr_day_names:
     - Dom
