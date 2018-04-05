@@ -34,6 +34,7 @@ pt-BR:
         start_date: Data de início
         end_date: Data de fim
         goals: Objetivos
+        price: Preço
 
     errors:
       messages:

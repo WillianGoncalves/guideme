@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   devise_scope :users do
-    resources :contracts, only: [:index]
+    resources :contracts, only: [:index, :show, :update]
   end
 
   root 'welcome#index'

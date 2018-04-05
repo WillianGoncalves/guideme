@@ -23,4 +23,12 @@ class User < ApplicationRecord
   def contracts_as_guide
     Contract.where("guide_id = ?", self.guide.id)
   end
+
+  def is_guide_of?(contract)
+    contract.guide.user.id == self.id
+  end
+
+  def is_contractor_of?(contract)
+    contract.contractor.id == self.id
+  end
 end

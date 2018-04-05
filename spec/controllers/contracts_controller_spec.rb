@@ -17,6 +17,22 @@ RSpec.describe ContractsController, type: :controller do
       it { expect(response).to render_template :index }
     end
 
+    describe 'GET #show' do
+      context 'when use is part of the contract' do
+        let!(:contract) { Fabricate :contract, guide: @guide, contractor: user }
+        before { get :show, params: { id: contract } }
+        it { expect(response).to render_template :show }
+        it { expect(assigns(:contract)).to eq contract }
+      end
+
+      context 'when use is not part of the contract' do
+        let!(:another_user) { Fabricate :user }
+        let!(:another_contract) { Fabricate :contract, guide: @guide, start_date: 5.days.from_now, end_date: 6.days.from_now, contractor: another_user }
+        before { get :show, params: { id: another_contract } }
+        it { expect(response).to redirect_to root_path }
+      end
+    end
+
     describe 'GET #new' do
       before { get :new, params: { guide_id: @guide } }
       it { expect(response).to render_template :new }
@@ -40,6 +56,24 @@ RSpec.describe ContractsController, type: :controller do
         it { expect(response).to render_template :new }
         it { expect(@guide.contracts.count).to eq 0 }
         it { expect(user.contracts.count).to eq 0 }
+      end
+    end
+
+    describe 'PUT #update' do
+      let!(:contract) { Fabricate :contract, guide: @guide, contractor: user }
+
+      context 'when the guide accepts the contract' do
+        let(:data) { { price: 100 } }
+        before { put :update, params: { id: contract, contract: data } }
+        it { expect(response).to redirect_to contract_path(contract) }
+        it { expect(contract.reload.price).to eq 100 }
+        it { expect(contract.reload.status).to eq "waiting_confirmation" }
+      end
+
+      context 'when the guide rejects the contract' do
+        before { put :update, params: { id: contract, status: "rejected" } }
+        it { expect(response).to redirect_to contract_path(contract) }
+        it { expect(contract.reload.status).to eq "rejected" }
       end
     end
   end

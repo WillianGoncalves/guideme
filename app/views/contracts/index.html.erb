@@ -1,6 +1,6 @@
-<h1><%= I18n.t('contracts.index.title') %></h1>
+<h1><%= t('contracts.index.title') %></h1>
 
-<h3><%= I18n.t('contracts.index.as_contractor')%></h3>
+<h3><%= t('contracts.index.as_contractor')%></h3>
 
 <div class="row">
   <% current_user.contracts_as_contractor.each do |contract| %>
@@ -12,27 +12,27 @@
             <div class="row">
               <!--locale-->
               <div class="col-sm-6">
-                <h6><%= I18n.t('contracts.index.locale') %></h6>
+                <h6><%= t('contracts.index.locale') %></h6>
                 <%= "#{ contract.guide.location.city }, #{ contract.guide.location.state }" %>
               </div>
               <!--dates-->
               <div class="col-sm-6">
-                <h6><%= I18n.t('contracts.index.period') %></h6>
-                <%= I18n.l(contract.start_date, format: "%d/%m/%y") %>
+                <h6><%= t('contracts.index.period') %></h6>
+                <%= l(contract.start_date, format: "%d/%m/%y") %>
                 &#8594;
-                <%= I18n.l(contract.end_date, format: "%d/%m/%y") %>
+                <%= l(contract.end_date, format: "%d/%m/%y") %>
               </div>
             </div>
 
             <!--guide-->
             <p>
-              <h6><%= I18n.t('contracts.index.guide') %></h6>
+              <h6><%= t('contracts.index.guide') %></h6>
               <%= link_to contract.guide.user.name, guide_path(contract.guide) %>
             </p>
 
             <!--goals-->
             <p>
-              <h6><%= I18n.t('contracts.index.goals') %></h6>
+              <h6><%= t('contracts.index.goals') %></h6>
               <%= contract.goals %>
             </p>
 
@@ -43,7 +43,7 @@
   <% end %>
 </div>
 
-<h3><%= I18n.t('contracts.index.as_guide')%></h3>
+<h3><%= t('contracts.index.as_guide')%></h3>
 
 <div class="row">
   <% current_user.contracts_as_guide.each do |contract| %>
@@ -55,29 +55,33 @@
             <div class="row">
               <!--locale-->
               <div class="col-sm-6">
-                <h6><%= I18n.t('contracts.index.price') %></h6>
-                <%= contract.price %>
+                <h6><%= t('contracts.index.price') %></h6>
+                <%= number_to_currency contract.price, unit: "R$", separator: ",", delimiter: "" %>
               </div>
               <!--dates-->
               <div class="col-sm-6">
-                <h6><%= I18n.t('contracts.index.period') %></h6>
-                <%= I18n.l(contract.start_date, format: "%d/%m/%y") %>
+                <h6><%= t('contracts.index.period') %></h6>
+                <%= l(contract.start_date, format: "%d/%m/%y") %>
                 &#8594;
-                <%= I18n.l(contract.end_date, format: "%d/%m/%y") %>
+                <%= l(contract.end_date, format: "%d/%m/%y") %>
               </div>
             </div>
 
             <!--contractor-->
             <p>
-              <h6><%= I18n.t('contracts.index.contractor') %></h6>
+              <h6><%= t('contracts.index.contractor') %></h6>
               <%= contract.contractor.name %>
             </p>
 
             <!--goals-->
             <p>
-              <h6><%= I18n.t('contracts.index.goals') %></h6>
+              <h6><%= t('contracts.index.goals') %></h6>
               <%= contract.goals %>
             </p>
+
+            <% if contract.under_analysis? %>
+              <%= link_to t('contracts.show.link'), contract_path(contract), class: 'btn btn-primary' %>
+            <% end %>
 
           </div>
         </div>

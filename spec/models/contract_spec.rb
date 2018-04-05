@@ -19,15 +19,27 @@ RSpec.describe Contract, type: :model do
 
   describe 'conflict with other contracts of a guide' do
     before(:all) do
-      @contractor = Fabricate :user
       user = Fabricate :user
       @guide = Fabricate :guide, user: user
-      Fabricate :contract, start_date: 1.day.from_now, end_date: 3.days.from_now, guide: @guide, contractor: @contractor
+      first_contractor = Fabricate :user
+      Fabricate :contract, start_date: 1.day.from_now, end_date: 3.days.from_now, guide: @guide, contractor: first_contractor
+      second_contractor = Fabricate :user
+      Fabricate :contract, start_date: 4.day.from_now, end_date: 6.days.from_now, guide: @guide, contractor: second_contractor, status: :rejected
     end
 
-    let!(:conflicting_contract) { Fabricate.build :contract, start_date: 2.days.from_now, end_date: 4.days.from_now, guide: @guide, contractor: @contractor }
-    before { conflicting_contract.validate }
-    it { expect(conflicting_contract.valid?).to eq false }
-    it { expect(conflicting_contract.errors[:start_date]).to match_array [ I18n.t(:date_conflict, scope: [:activerecord, :errors, :models, :contract, :attributes, :start_date]) ] }
+    let(:third_contractor) { Fabricate :user }
+
+    context 'when there is conflict' do
+      let(:conflicting_contract) { Fabricate.build :contract, start_date: 2.days.from_now, end_date: 4.days.from_now, guide: @guide, contractor: third_contractor }
+      before { conflicting_contract.validate }
+      it { expect(conflicting_contract.valid?).to eq false }
+      it { expect(conflicting_contract.errors[:start_date]).to match_array [ I18n.t(:date_conflict, scope: [:activerecord, :errors, :models, :contract, :attributes, :start_date]) ] }
+    end
+
+    context 'when there is no conflict' do
+      let(:contract) { Fabricate.build :contract, start_date: 4.days.from_now, end_date: 6.days.from_now, guide: @guide, contractor: third_contractor }
+      before { contract.validate }
+      it { expect(contract.valid?).to eq true }
+    end
   end
 end

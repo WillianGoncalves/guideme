@@ -36,5 +36,15 @@ pt-BR:
       goals: Objetivos
       contractor: Contratante
       price: Valor
+    show:
+      link: Avaliar
+      contractor: Contratante
+      guide: Guia
+      goals: Objetivos
+      period: Período
+      price: Preço
+      acceptance_question: Caso aceite, quando você cobra por este serviço?
     new: Contratar
     create: Enviar para análise
+    accept: Aceitar
+    reject: Rejeitar

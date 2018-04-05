@@ -4,6 +4,7 @@ pt-BR:
     guide_status_updated: "O status da conta foi atualizado para %{status}"
     blank_lat_lng: Não foi possível determinar sua localização com base no seu endereço. Atualize seu endereço para que você possa ser encontrado pelas buscas.
     contract_created: Sua solicitação foi enviada. Por favor, aguarde uma resposta do guia.
+    access_denied_to_contract: Você não pode acessar informações desse contrato
   date:
     abbr_day_names:
     - Dom

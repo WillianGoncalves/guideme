@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-sm-6 center">
+    <div class="card">
+      <h3 class="card-header"><%= t('contracts.show.contractor') %></h3>
+      <div class="card-body">
+        <%= gravatar_for(@contract.contractor) %>
+        <p class="margin-top"><%= @contract.contractor.name %></p>
+        <small><%= @contract.contractor.email %></small>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 center">
+    <div class="card">
+      <h3 class="card-header"><%= t('contracts.show.guide') %></h3>
+      <div class="card-body">
+        <%= gravatar_for(@contract.guide.user) %>
+        <p class="margin-top"><%= @contract.guide.user.name %></p>
+        <small><%= @contract.guide.user.email %></small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h3><%= t('contracts.show.period') %></h3>
+    <p>
+      <%= l(@contract.start_date, format: "%d/%m/%y") %>
+      &#8594;
+      <%= l(@contract.end_date, format: "%d/%m/%y") %>
+    </p>
+  </div>
+  <% if @contract.price.present? %>
+    <div class="col-sm-6">
+      <h3><%= t('contracts.show.price') %></h3>
+      <p>
+        <%= number_to_currency @contract.price, unit: "R$", separator: ",", delimiter: "" %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <h3><%= t('contracts.show.goals') %></h3>
+  <p><%= @contract.goals %></p>
+</div>
+
+<% if current_user.is_guide_of?(@contract) and @contract.under_analysis? %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= t('contracts.show.acceptance_question') %></h5>
+      <%= form_for @contract do |f| %>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">R$</span>
+            </div>
+            <%= f.text_field :price, class: 'form-control' %>
+          </div>
+        </div>
+
+        <%= f.submit t('contracts.accept'), class: 'btn btn-primary' %>
+        <%= link_to t('contracts.reject'), contract_path(@contract, status: "rejected"), method: :put, class: 'btn btn-danger pull-right' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
