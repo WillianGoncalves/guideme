@@ -1,27 +1,23 @@
 class ContractsController < ApplicationController
-  before_action :set_contract, only: [:show, :update]
+  before_action :set_contract, only: [:show, :update, :reject]
+  before_action :set_guide, only: [:new, :create]
+  before_action :require_guide_or_contractor, only: [:show]
+  before_action :require_guide, only: [:update, :reject]
 
   def index; end
 
-  def show
-    unless current_user.is_guide_of?(@contract) or current_user.is_contractor_of?(@contract)
-      flash[:danger] = I18n.t('messages.access_denied_to_contract')
-      redirect_to root_path
-    end
-  end
+  def show; end
 
   def new
-    @guide = Guide.find(params[:guide_id])
     @contract = Contract.new
   end
 
   def create
-    @guide = Guide.find(params[:guide_id])
     @contract = @guide.contracts.build(create_params)
     @contract.contractor = current_user
     if @contract.save
       @contract.under_analysis!
-      flash[:success] = I18n.t('messages.contract_created')
+      flash[:success] = I18n.t('messages.contract.created')
       redirect_to contracts_path
     else
       render :new
@@ -29,13 +25,18 @@ class ContractsController < ApplicationController
   end
 
   def update
-    if update_params[:price].present?
-      @contract.update(update_params)
-      @contract.waiting_confirmation!
-    elsif update_params[:status].present? and update_params[:status] == "rejected"
-      @contract.rejected!
-    end
+    @contract.update(update_params)
+    @contract.waiting_confirmation!
     redirect_to contract_path(@contract)
+  end
+
+  def reject
+    if @contract.under_analysis?
+      @contract.rejected!
+      redirect_to contract_path(@contract)
+    else
+      redirect_to contracts_path
+    end
   end
 
   private
@@ -44,14 +45,28 @@ class ContractsController < ApplicationController
   end
 
   def update_params
-    if params[:status].present?
-      params.permit(:status)
-    else
-      params.require(:contract).permit(:price)
-    end
+    params.require(:contract).permit(:price)
   end
 
   def set_contract
     @contract = Contract.find(params[:id])
+  end
+
+  def set_guide
+    @guide = Guide.find(params[:guide_id])
+  end
+
+  def require_guide
+    unless current_user.is_guide_of?(@contract)
+      flash[:danger] = I18n.t('messages.contract.guide_required')
+      redirect_to root_path
+    end
+  end
+
+  def require_guide_or_contractor
+    unless current_user.is_guide_of?(@contract) or current_user.is_contractor_of?(@contract)
+      flash[:danger] = I18n.t('messages.contract.guide_or_contractor_required')
+      redirect_to root_path
+    end
   end
 end

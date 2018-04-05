@@ -60,7 +60,7 @@
         </div>
 
         <%= f.submit t('contracts.accept'), class: 'btn btn-primary' %>
-        <%= link_to t('contracts.reject'), contract_path(@contract, status: "rejected"), method: :put, class: 'btn btn-danger pull-right' %>
+        <%= link_to t('contracts.reject'), reject_contract_path(@contract), class: 'btn btn-danger pull-right' %>
       <% end %>
     </div>
   </div>
