@@ -22,7 +22,7 @@ RSpec.describe Contract, type: :model do
       user = Fabricate :user
       @guide = Fabricate :guide, user: user
       first_contractor = Fabricate :user
-      Fabricate :contract, start_date: 1.day.from_now, end_date: 3.days.from_now, guide: @guide, contractor: first_contractor
+      Fabricate :contract, start_date: 1.day.from_now, end_date: 3.days.from_now, guide: @guide, contractor: first_contractor, status: :under_analysis
       second_contractor = Fabricate :user
       Fabricate :contract, start_date: 4.day.from_now, end_date: 6.days.from_now, guide: @guide, contractor: second_contractor, status: :rejected
     end
