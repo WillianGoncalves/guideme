@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404210132) do
+ActiveRecord::Schema.define(version: 20180407183714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,15 @@ ActiveRecord::Schema.define(version: 20180404210132) do
     t.string "city", default: "", null: false
     t.string "state", default: "", null: false
     t.index ["guide_id"], name: "index_locations_on_guide_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.float "comission", default: 0.0, null: false
+    t.integer "payment_type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "contract_id"
+    t.index ["contract_id"], name: "index_payments_on_contract_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

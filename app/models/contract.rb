@@ -1,7 +1,8 @@
 class Contract < ApplicationRecord
   belongs_to :guide
   belongs_to :contractor, class_name: "User", foreign_key: "user_id"
-  validates_presence_of :guide, :contractor, :start_date, :end_date
+  has_one :payment
+  validates_presence_of :guide, :contractor, :start_date, :end_date, :status
   validates :goals, presence: true, length: { minimum: 10 }
   validate :start_date_must_be_before_end_date, :contracts_can_not_conflict
   enum status: [:under_analysis, :rejected, :waiting_confirmation, :canceled, :waiting_payment, :expired, :paid, :finished]
