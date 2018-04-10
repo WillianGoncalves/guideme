@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  devise_scope :users do
-    resources :contracts, only: [:index, :show, :update] do
-      member do
-        get 'reject'
-        get 'cancel'
-      end
-    end
-  end
+  #devise_scope :users do
+    #resources :contracts, only: [:index]
+  #end
 
   root 'welcome#index'
 
@@ -24,5 +19,13 @@ Rails.application.routes.draw do
       get 'perform_search'
     end
     resources :contracts, only: [:new, :create]
+  end
+
+  resources :contracts, only: [:index, :show, :update] do
+    member do
+      get 'reject'
+      get 'cancel'
+    end
+    resources :payments, only: [:new, :create]
   end
 end
