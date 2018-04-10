@@ -51,6 +51,7 @@ pt-BR:
     reject: Rejeitar
     confirm: Confirmar
     cancel: Cancelar
+    finish: Finalizar
   payments:
     new:
       title: Confirmação de pagamento

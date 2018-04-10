@@ -8,6 +8,9 @@ pt-BR:
       guide_or_contractor_required: Apenas o guia ou o contratante podem realizar essa ação
       guide_required: Apenas o guia pode realizar essa ação
       contractor_required: Apenas o contratante pode realizar essa ação
+      finish:
+        invalid_date: O contrato não pode ser encerrado antes da data de término
+        invalid_status: O contrato não pode ser encerrado antes da confirmação do pagamento
   date:
     abbr_day_names:
     - Dom

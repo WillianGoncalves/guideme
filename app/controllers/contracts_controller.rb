@@ -1,8 +1,8 @@
 class ContractsController < ApplicationController
-  before_action :set_contract, only: [:show, :update, :reject, :cancel]
+  before_action :set_contract, only: [:show, :update, :reject, :cancel, :finish]
   before_action :set_guide, only: [:new, :create]
   before_action :require_guide_or_contractor, only: [:show]
-  before_action :require_guide, only: [:update, :reject]
+  before_action :require_guide, only: [:update, :reject, :finish]
   before_action :require_contractor, only: [:cancel]
 
   def index; end
@@ -46,6 +46,19 @@ class ContractsController < ApplicationController
       redirect_to contract_path(@contract)
     else
       redirect_to contracts_path
+    end
+  end
+
+  def finish
+    if @contract.end_date > DateTime.now
+      flash[:danger] = I18n.t('messages.contract.finish.invalid_date')
+      return redirect_to contracts_path
+    elsif !@contract.paid?
+      flash[:danger] = I18n.t('messages.contract.finish.invalid_status')
+      return redirect_to contracts_path
+    else
+      @contract.finished!
+      redirect_to contract_path(@contract)
     end
   end
 

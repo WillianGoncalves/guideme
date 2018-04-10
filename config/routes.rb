@@ -23,8 +23,9 @@ Rails.application.routes.draw do
 
   resources :contracts, only: [:index, :show, :update] do
     member do
-      get 'reject'
-      get 'cancel'
+      post 'reject'
+      post 'cancel'
+      post 'finish'
     end
     resources :payments, only: [:new, :create]
   end

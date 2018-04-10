@@ -40,6 +40,10 @@
           <% if contract.under_analysis? %>
             <%= link_to t('contracts.show.analyze'), contract_path(contract), class: 'btn btn-primary btn-sm' %>
           <% end %>
+
+          <% if contract.paid? %>
+            <%= link_to t('contracts.finish'), finish_contract_path(contract), method: :post, class: 'btn btn-primary btn-sm' %>
+          <% end %>
         </div>
 
       </div>

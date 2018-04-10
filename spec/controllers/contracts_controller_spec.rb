@@ -85,17 +85,17 @@ RSpec.describe ContractsController, type: :controller do
       end
     end
 
-    describe 'GET #reject' do
+    describe 'POST #reject' do
       context 'when the current user is the guide' do
         context 'and contract is under analysis' do
           let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :under_analysis }
-          before { get :reject, params: { id: contract } }
+          before { post :reject, params: { id: contract } }
           it { expect(response).to redirect_to contract_path(contract) }
           it { expect(assigns(:contract).status).to eq "rejected" }
         end
         context 'and contract is not under analysis' do
           let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :waiting_confirmation }
-          before { get :reject, params: { id: contract } }
+          before { post :reject, params: { id: contract } }
           it { expect(response).to redirect_to contracts_path }
           it { expect(assigns(:contract).status).to eq "waiting_confirmation" }
         end
@@ -103,23 +103,23 @@ RSpec.describe ContractsController, type: :controller do
 
       context 'when the current user is not the guide' do
         let!(:contract) { Fabricate :contract, status: :under_analysis }
-        before { get :reject, params: { id: contract } }
+        before { post :reject, params: { id: contract } }
         it { expect(response).to redirect_to root_path }
         it { expect(assigns(:contract).status).to eq "under_analysis" }
       end
     end
 
-    describe 'GET #cancel' do
+    describe 'POST #cancel' do
       context 'when the current user is the contractor' do
         context 'and contract is waiting confirmation' do
           let!(:contract) { Fabricate :contract, contractor: user, status: :waiting_confirmation }
-          before { get :cancel, params: { id: contract } }
+          before { post :cancel, params: { id: contract } }
           it { expect(response).to redirect_to contract_path(contract) }
           it { expect(assigns(:contract).status).to eq "canceled" }
         end
         context 'and contract is not waiting confirmation' do
           let!(:contract) { Fabricate :contract, contractor: user, status: :under_analysis }
-          before { get :cancel, params: { id: contract } }
+          before { post :cancel, params: { id: contract } }
           it { expect(response).to redirect_to contracts_path }
           it { expect(assigns(:contract).status).to eq "under_analysis" }
         end
@@ -127,9 +127,46 @@ RSpec.describe ContractsController, type: :controller do
 
       context 'when the current user is not the contractor' do
         let!(:contract) { Fabricate :contract, status: :under_analysis }
-        before { get :cancel, params: { id: contract } }
+        before { post :cancel, params: { id: contract } }
         it { expect(response).to redirect_to root_path }
         it { expect(assigns(:contract).status).to eq "under_analysis" }
+      end
+    end
+
+    describe 'POST #finish' do
+      context 'when the current user is the guide' do
+        context 'and contract can be finished' do
+          let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :paid, start_date: 3.days.ago, end_date: 2.day.ago }
+          before { post :finish, params: { id: contract } }
+          it { expect(response).to redirect_to contract_path(contract) }
+          it { expect(flash[:danger]).to_not be_present }
+          it { expect(contract.reload.status).to eq "finished" }
+        end
+
+        context 'and contract can not be finished' do
+          context 'because of the status' do
+            let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :waiting_payment }
+            before { post :finish, params: { id: contract } }
+            it { expect(response).to redirect_to contracts_path }
+            it { expect(flash[:danger]).to be_present }
+            it { expect(contract.status).to eq "waiting_payment" }
+          end
+
+          context 'because of the end date' do
+            let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :paid, start_date: 3.days.ago, end_date: 1.day.from_now }
+            before { post :finish, params: { id: contract } }
+            it { expect(response).to redirect_to contracts_path }
+            it { expect(flash[:danger]).to be_present }
+            it { expect(contract.status).to eq "paid" }
+          end
+        end
+      end
+
+      context 'when the current user is not the guide' do
+        let!(:contract) { Fabricate :contract }
+        before { post :finish, params: { id: contract } }
+        it { expect(response).to redirect_to root_path }
+        it { expect(flash[:danger]).to be_present }
       end
     end
   end

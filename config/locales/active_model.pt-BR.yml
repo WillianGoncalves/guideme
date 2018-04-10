@@ -98,5 +98,7 @@ pt-BR:
         contract:
           attributes:
             start_date:
-              invalid_interval: "A data de início deve ser anterior à data de fim"
+              invalid_interval: "A data de início deve ser posterior à data atual e anterior à data de fim"
+              date_conflict: "O guia não está disponível nesta data"
+            end_date:
               date_conflict: "O guia não está disponível nesta data"
