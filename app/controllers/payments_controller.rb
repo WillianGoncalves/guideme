@@ -1,10 +1,10 @@
 class PaymentsController < ApplicationController
+  before_action :set_contract, only: [:new, :create]
   def new
     @payment = Payment.new(comission: Payment::COMISSION)
   end
  
   def create
-    @contract = Contract.find(params[:contract_id])
     payment = @contract.build_payment(payment_params)
     payment.comission = Payment::COMISSION
     if payment.save
@@ -18,5 +18,9 @@ class PaymentsController < ApplicationController
   private
   def payment_params
     params.require(:payment).permit(:payment_type)
+  end
+
+  def set_contract
+    @contract = Contract.find(params[:contract_id])
   end
 end

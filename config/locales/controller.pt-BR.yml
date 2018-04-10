@@ -51,3 +51,8 @@ pt-BR:
     reject: Rejeitar
     confirm: Confirmar
     cancel: Cancelar
+  payments:
+    new:
+      title: Confirmação de pagamento
+      price: Valor
+    create: Confirmar pagamento

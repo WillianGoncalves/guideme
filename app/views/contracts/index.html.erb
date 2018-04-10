@@ -1,112 +1,21 @@
 <h1><%= t('contracts.index.title') %></h1>
 
-<h3><%= t('contracts.index.as_contractor')%></h3>
+<% if current_user.contracts_as_contractor.any? %>
+  <h3><%= t('contracts.index.as_contractor')%></h3>
 
-<div class="row">
-  <% current_user.contracts_as_contractor.each do |contract| %>
-    <div class="col-sm-12 col-md-6">
-      <div class="card mb-4 box-shadow">
-        <div class="card-body">
-          <div class="card-text">
+  <div class="row">
+    <% current_user.contracts_as_contractor.each do |contract| %>
+      <%= render 'contract_card_for_contractor', contract: contract %>
+    <% end %>
+  </div>
+<% end %>
 
-            <div class="right">
-              <%= badge_for_status(contract) %>
-            </div>
+<% if current_user.contracts_as_guide.any? %>
+  <h3><%= t('contracts.index.as_guide')%></h3>
 
-            <div class="row">
-              <!--locale-->
-              <div class="col-sm-6">
-                <h6><%= t('contracts.index.locale') %></h6>
-                <%= "#{ contract.guide.location.city }, #{ contract.guide.location.state }" %>
-              </div>
-              <!--dates-->
-              <div class="col-sm-6">
-                <h6><%= t('contracts.index.period') %></h6>
-                <%= l(contract.start_date, format: "%d/%m/%y") %>
-                &#8594;
-                <%= l(contract.end_date, format: "%d/%m/%y") %>
-              </div>
-            </div>
-
-            <!--guide-->
-            <h6><%= t('contracts.index.guide') %></h6>
-            <p class="one-line-text">
-              <%= link_to contract.guide.user.name, guide_path(contract.guide) %>
-            </p>
-
-            <!--goals-->
-            <h6><%= t('contracts.index.goals') %></h6>
-            <p class="one-line-text">
-              <%= contract.goals %>
-            </p>
-
-            <div class="margin-top">
-              <%= link_to t('contracts.show.details'), contract_path(contract), class: 'btn btn-default' %>
-
-              <% if contract.waiting_confirmation? %>
-                <%= link_to t('contracts.confirm'), contract_path(contract), class: 'btn btn-primary' %>
-                <%= link_to t('contracts.cancel'), cancel_contract_path(contract), class: 'btn btn-danger pull-right' %>
-              <% end %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<h3><%= t('contracts.index.as_guide')%></h3>
-
-<div class="row">
-  <% current_user.contracts_as_guide.each do |contract| %>
-    <div class="col-sm-12 col-md-6">
-      <div class="card mb-4 box-shadow">
-        <div class="card-body">
-          <div class="card-text">
-
-            <div class="right">
-              <%= badge_for_status(contract) %>
-            </div>
-
-            <div class="row">
-              <!--locale-->
-              <div class="col-sm-6">
-                <h6><%= t('contracts.index.price') %></h6>
-                <%= number_to_currency contract.price, unit: "R$", separator: ",", delimiter: "" %>
-              </div>
-              <!--dates-->
-              <div class="col-sm-6">
-                <h6><%= t('contracts.index.period') %></h6>
-                <%= l(contract.start_date, format: "%d/%m/%y") %>
-                &#8594;
-                <%= l(contract.end_date, format: "%d/%m/%y") %>
-              </div>
-            </div>
-
-            <!--contractor-->
-            <h6><%= t('contracts.index.contractor') %></h6>
-            <p class="one-line-text">
-              <%= contract.contractor.name %>
-            </p>
-
-            <!--goals-->
-            <h6><%= t('contracts.index.goals') %></h6>
-            <p class="one-line-text">
-              <%= contract.goals %>
-            </p>
-
-            <div class="margin-top">
-              <%= link_to t('contracts.show.details'), contract_path(contract), class: 'btn' %>
-
-              <% if contract.under_analysis? %>
-                <%= link_to t('contracts.show.analyze'), contract_path(contract), class: 'btn btn-primary' %>
-              <% end %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+  <div class="row">
+    <% current_user.contracts_as_guide.each do |contract| %>
+      <%= render 'contract_card_for_guide', contract: contract %>
+    <% end %>
+  </div>
+<% end %>

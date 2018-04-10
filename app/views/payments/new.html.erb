@@ -1,0 +1,12 @@
+<h1><%= t('payments.new.title') %></h1>
+
+<h3><strong><%= t('payments.new.price') %>:</strong> <%= number_to_currency @contract.price, unit: "R$", separator: ",", delimiter: "" %></h3>
+
+<%= form_for [@contract, @payment] do |f| %>
+  <div class="form-group">
+    <%= f.label :payment_type %>
+    <%= f.select :payment_type, options_for_select(payment_types_for_select), {}, class: 'form-control' %>
+  </div>
+
+  <%= f.submit t('payments.create'), class: 'btn btn-primary' %>
+<% end %>

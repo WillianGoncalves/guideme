@@ -9,6 +9,7 @@ RSpec.describe PaymentsController, type: :controller do
       let!(:contract) { Fabricate :contract }
       before { get :new, params: { contract_id: contract } }
       it { expect(response).to render_template :new }
+      it { expect(assigns(:contract)).to eq contract }
       it { expect(assigns(:payment)).to be_a_new Payment }
       it { expect(assigns(:payment).comission).to eq Payment::COMISSION }
     end

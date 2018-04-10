@@ -44,6 +44,12 @@ pt-BR:
           expired: Expirado
           paid: Pago
           finished: Concluído
+      payment:
+        payment_type: Tipo de pagamento
+        payment_types:
+          bank_slip: Boleto bancário
+          credit_card: Cartão de crédito
+          debit_card: Cartão de débito
 
     errors:
       messages:
