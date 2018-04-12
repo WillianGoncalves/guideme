@@ -28,14 +28,17 @@ pt-BR:
   contracts:
     index:
       title: Meus contratos
-      as_contractor: Como contratante
-      as_guide: Como guia
-      locale: Local
       period: Período
       guide: Guia
       goals: Objetivos
       contractor: Contratante
       price: Valor
+      search:
+        action: Pesquisar
+        by_status: Por status
+        by_date: Por data
+        from: De
+        until: Até
     show:
       details: Detalhes
       analyze: Analisar

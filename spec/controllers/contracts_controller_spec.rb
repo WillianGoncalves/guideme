@@ -7,8 +7,51 @@ RSpec.describe ContractsController, type: :controller do
     before { sign_in user }
 
     describe 'GET #index' do
-      before { get :index }
-      it { expect(response).to render_template :index }
+      let!(:under_analysis_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 1), end_date: DateTime.new(2018, 5, 2), status: :under_analysis }
+      let!(:rejected_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 3), end_date: DateTime.new(2018, 5, 4), status: :rejected }
+      let!(:waiting_confirmation_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 5), end_date: DateTime.new(2018, 5, 6), status: :waiting_confirmation }
+      let!(:canceled_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 7), end_date: DateTime.new(2018, 5, 8), status: :canceled }
+      let!(:waiting_payment_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 9), end_date: DateTime.new(2018, 5, 10), status: :waiting_payment }
+
+      let!(:all_contracts) { [ under_analysis_contract, rejected_contract, waiting_confirmation_contract, canceled_contract, waiting_payment_contract ] }
+
+      context 'without search params' do
+        before { get :index }
+        it { expect(response).to render_template :index }
+        it { expect(assigns(:contracts)).to match_array all_contracts }
+      end
+
+      context 'filtering by status' do
+        before { get :index, params: { statuses: 'under_analysis' } }
+        it { expect(response).to render_template :index }
+        it { expect(assigns(:contracts)).to match_array [ under_analysis_contract ] }
+      end
+
+      context 'filtering by an nonexistent status' do
+        before { get :index, params: { statuses: 'finished' } }
+        it { expect(response).to render_template :index }
+        it { expect(assigns(:contracts)).to be_empty }
+      end
+
+      context 'filtering by date' do
+        context 'with start and end dates' do
+          before { get :index, params: { start_date: DateTime.new(2018, 5, 7), end_date: DateTime.new(2018, 5, 10) } }
+          it { expect(response).to render_template :index }
+          it { expect(assigns(:contracts)).to match_array [ canceled_contract, waiting_payment_contract ] }
+        end
+
+        context 'with only start date' do
+          before { get :index, params: { start_date: DateTime.new(2018, 5, 3) } }
+          it { expect(response).to render_template :index }
+          it { expect(assigns(:contracts)).to match_array [ rejected_contract, waiting_confirmation_contract, canceled_contract, waiting_payment_contract ] }
+        end
+
+        context 'with only end date' do
+          before { get :index, params: { end_date: DateTime.new(2018, 5, 5) } }
+          it { expect(response).to render_template :index }
+          it { expect(assigns(:contracts)).to match_array [ under_analysis_contract, rejected_contract ] }
+        end
+      end
     end
 
     describe 'GET #show' do
@@ -136,7 +179,8 @@ RSpec.describe ContractsController, type: :controller do
     describe 'POST #finish' do
       context 'when the current user is the guide' do
         context 'and contract can be finished' do
-          let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :paid, start_date: 3.days.ago, end_date: 2.day.ago }
+          let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :paid, start_date: 1.day.from_now, end_date: 2.days.from_now }
+          before { allow(DateTime).to receive(:now).and_return(3.days.from_now) }
           before { post :finish, params: { id: contract } }
           it { expect(response).to redirect_to contract_path(contract) }
           it { expect(flash[:danger]).to_not be_present }
@@ -153,7 +197,8 @@ RSpec.describe ContractsController, type: :controller do
           end
 
           context 'because of the end date' do
-            let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :paid, start_date: 3.days.ago, end_date: 1.day.from_now }
+            let!(:contract) { Fabricate :contract, guide: current_user_guide, status: :paid, start_date: 1.day.from_now, end_date: 3.days.from_now }
+            before { allow(DateTime).to receive(:now).and_return(2.days.from_now) }
             before { post :finish, params: { id: contract } }
             it { expect(response).to redirect_to contracts_path }
             it { expect(flash[:danger]).to be_present }

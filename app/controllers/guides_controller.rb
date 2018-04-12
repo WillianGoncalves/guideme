@@ -74,13 +74,10 @@ class GuidesController < ApplicationController
   def guide_params
     params.require(:guide)
       .permit(
-        :birthdate, 
-        :main_phone, 
-        :secondary_phone, 
-        :bio, 
+        :birthdate, :main_phone, :secondary_phone, :bio, 
         academic_educations_attributes: [:id, :course, :institution, :finished_in, :level],
         location_attributes: [:id, :street, :district, :city, :state]
-    )
+      )
   end
 
   def update_status_params

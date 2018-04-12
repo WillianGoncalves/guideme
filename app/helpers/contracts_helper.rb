@@ -21,4 +21,10 @@ module ContractsHelper
     end
     content_tag(:span, contract.display_status, class: [css_classes])
   end
+
+  def count_contracts_by_status(status)
+    contracts = current_user.contracts_as_contractor
+    contracts.concat(current_user.contracts_as_guide) if current_user.guide.present?
+    contracts.where(status: status).count
+  end
 end

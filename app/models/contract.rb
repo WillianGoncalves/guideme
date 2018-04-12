@@ -8,6 +8,7 @@ class Contract < ApplicationRecord
   enum status: [:under_analysis, :rejected, :waiting_confirmation, :canceled, :waiting_payment, :expired, :paid, :finished]
 
   def validate_start_date
+    return if persisted?
     if start_date.present? and end_date.present?
       if start_date > end_date or start_date < DateTime.now
         errors.add(:start_date, :invalid_interval)

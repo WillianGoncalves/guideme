@@ -1,0 +1,26 @@
+<%= form_tag contracts_path, method: :get do %>
+  <h4><%= t('contracts.index.search.by_status') %>:</h4>
+  <% Contract.statuses.map do |k, v| %>
+    <div>
+      <%= check_box_tag("statuses[]", k, @statuses.include?(k)) %>
+      <%= label_tag nil, "#{ t("activerecord.attributes.contract.statuses.#{k}") } (#{ count_contracts_by_status(k) })" %>
+    </div>
+  <% end %>
+  <hr />
+
+  <h4><%= t('contracts.index.search.by_date') %>:</h4>
+
+  <div class="form-group">
+  <label><%= t('contracts.index.search.from') %>:</label>
+    <%= date_field_tag :start_date, @start_date, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+  <label><%= t('contracts.index.search.until') %>:</label>
+  <%= date_field_tag :end_date, @end_date, class: 'form-control' %>
+  </div>
+
+  <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
+    <span class="fa fa-search"></span>
+    <%= t('contracts.index.search.action') %>
+  <% end %>
+<% end %>

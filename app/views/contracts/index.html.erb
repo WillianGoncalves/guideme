@@ -1,21 +1,21 @@
 <h1><%= t('contracts.index.title') %></h1>
 
-<% if current_user.contracts_as_contractor.any? %>
-  <h3><%= t('contracts.index.as_contractor')%></h3>
-
-  <div class="row">
-    <% current_user.contracts_as_contractor.each do |contract| %>
-      <%= render 'contract_card_for_contractor', contract: contract %>
-    <% end %>
+<div class="row">
+  <div class="col-sm-4">
+    <%= render 'search_form' %>
   </div>
-<% end %>
 
-<% if current_user.contracts_as_guide.any? %>
-  <h3><%= t('contracts.index.as_guide')%></h3>
+  <div class="col-sm-8">
+    <div class="center">
+      <%= will_paginate %>
+    </div>
 
-  <div class="row">
-    <% current_user.contracts_as_guide.each do |contract| %>
-      <%= render 'contract_card_for_guide', contract: contract %>
+    <% @contracts.each do |contract| %>
+      <%= render 'contract_card', contract: contract %>
     <% end %>
+
+    <div class="center">
+      <%= will_paginate %>
+    </div>
   </div>
-<% end %>
+</div>

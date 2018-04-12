@@ -5,7 +5,24 @@ class ContractsController < ApplicationController
   before_action :require_guide, only: [:update, :reject, :finish]
   before_action :require_contractor, only: [:cancel]
 
-  def index; end
+  def index
+    @statuses = params[:statuses] || []
+    @start_date = search_params[:start_date]
+    @end_date = search_params[:end_date]
+
+    @contracts = current_user.contracts_as_contractor
+    @contracts.concat(current_user.contracts_as_guide) if current_user.guide.present?
+
+    #filter by status
+    @contracts = @contracts.where(status: @statuses) unless @statuses.blank?
+
+    #filter by date
+    @contracts = @contracts.where('start_date >= ?', @start_date) if @start_date.present?
+    @contracts = @contracts.where('end_date <= ?', @end_date) if @end_date.present?
+
+    #paginate
+    @contracts = @contracts.paginate(page: params[:page], per_page: 5)
+  end
 
   def show; end
 
@@ -63,6 +80,10 @@ class ContractsController < ApplicationController
   end
 
   private
+  def search_params
+    params.permit(:start_date, :end_date, statuses: [])
+  end
+
   def create_params
     params.require(:contract).permit(:start_date, :end_date, :goals)
   end

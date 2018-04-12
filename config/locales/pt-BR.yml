@@ -1,4 +1,8 @@
 pt-BR:
+  will_paginate:
+    previous_label: "&#8592; Anterior"
+    next_label: "Próxima &#8594;"
+    page_gap: "&hellip;"
   messages:
     admin_required: Essa ação requer uma conta de administrador
     guide_status_updated: "O status da conta foi atualizado para %{status}"
