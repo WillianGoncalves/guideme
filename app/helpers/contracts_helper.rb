@@ -25,5 +25,6 @@ module ContractsHelper
   def count_contracts_by_status(status)
     count = current_user.contracts_as_contractor.where(status: status).count
     count += current_user.contracts_as_guide.where(status: status).count if current_user.guide.present?
+    return count
   end
 end
