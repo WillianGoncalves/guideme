@@ -23,8 +23,7 @@ module ContractsHelper
   end
 
   def count_contracts_by_status(status)
-    contracts = current_user.contracts_as_contractor
-    contracts.concat(current_user.contracts_as_guide) if current_user.guide.present?
-    contracts.where(status: status).count
+    count = current_user.contracts_as_contractor.where(status: status).count
+    count += current_user.contracts_as_guide.where(status: status).count if current_user.guide.present?
   end
 end

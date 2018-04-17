@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :update, :reject, :cancel, :finish]
   before_action :set_guide, only: [:new, :create]
@@ -11,7 +13,7 @@ class ContractsController < ApplicationController
     @end_date = search_params[:end_date]
 
     @contracts = current_user.contracts_as_contractor
-    @contracts.concat(current_user.contracts_as_guide) if current_user.guide.present?
+    @contracts += current_user.contracts_as_guide if current_user.guide.present?
 
     #filter by status
     @contracts = @contracts.where(status: @statuses) unless @statuses.blank?
