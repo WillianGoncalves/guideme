@@ -16,11 +16,18 @@ class ContractsController < ApplicationController
     @contracts += current_user.contracts_as_guide if current_user.guide.present?
 
     #filter by status
-    @contracts = @contracts.where(status: @statuses) unless @statuses.blank?
+    @contracts = @contracts.select { |contract| @statuses.include?(contract.status) } unless @statuses.blank?
 
     #filter by date
-    @contracts = @contracts.where('start_date >= ?', @start_date) if @start_date.present?
-    @contracts = @contracts.where('end_date <= ?', @end_date) if @end_date.present?
+    if @start_date.present? and @end_date.present?
+      @contracts = @contracts.select do |contract|
+        contract.start_date >= @start_date and contract.end_date <= @end_date
+      end
+    elsif @start_date.present?
+      @contracts = @contracts.select { |contract| contract.start_date >= @start_date }
+    elsif @end_date.present?
+      @contracts = @contracts.select { |contract| contract.end_date <= @end_date }
+    end
 
     #paginate
     @contracts = @contracts.paginate(page: params[:page], per_page: 5)

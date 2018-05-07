@@ -7,18 +7,16 @@ RSpec.describe ContractsController, type: :controller do
     before { sign_in user }
 
     describe 'GET #index' do
-      let!(:under_analysis_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 1), end_date: DateTime.new(2018, 5, 2), status: :under_analysis }
-      let!(:rejected_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 3), end_date: DateTime.new(2018, 5, 4), status: :rejected }
-      let!(:waiting_confirmation_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 5), end_date: DateTime.new(2018, 5, 6), status: :waiting_confirmation }
-      let!(:canceled_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 7), end_date: DateTime.new(2018, 5, 8), status: :canceled }
-      let!(:waiting_payment_contract) { Fabricate :contract, guide: current_user_guide, start_date: DateTime.new(2018, 5, 9), end_date: DateTime.new(2018, 5, 10), status: :waiting_payment }
-
-      let!(:all_contracts) { [ under_analysis_contract, rejected_contract, waiting_confirmation_contract, canceled_contract, waiting_payment_contract ] }
+      let!(:under_analysis_contract) { Fabricate :contract, guide: current_user_guide, start_date: 1.day.from_now, end_date: 2.days.from_now, status: :under_analysis }
+      let!(:rejected_contract) { Fabricate :contract, guide: current_user_guide, start_date: 3.days.from_now, end_date: 4.days.from_now, status: :rejected }
+      let!(:waiting_confirmation_contract) { Fabricate :contract, guide: current_user_guide, start_date: 5.days.from_now, end_date: 6.days.from_now, status: :waiting_confirmation }
+      let!(:canceled_contract) { Fabricate :contract, guide: current_user_guide, start_date: 7.days.from_now, end_date: 8.days.from_now, status: :canceled }
+      let!(:waiting_payment_contract) { Fabricate :contract, guide: current_user_guide, start_date: 9.days.from_now, end_date: 10.days.from_now, status: :waiting_payment }
 
       context 'without search params' do
         before { get :index }
         it { expect(response).to render_template :index }
-        it { expect(assigns(:contracts)).to match_array all_contracts }
+        it { expect(assigns(:contracts)).to match_array [ under_analysis_contract, rejected_contract, waiting_confirmation_contract, canceled_contract, waiting_payment_contract ] }
       end
 
       context 'filtering by status' do
@@ -35,19 +33,19 @@ RSpec.describe ContractsController, type: :controller do
 
       context 'filtering by date' do
         context 'with start and end dates' do
-          before { get :index, params: { start_date: DateTime.new(2018, 5, 7), end_date: DateTime.new(2018, 5, 10) } }
+          before { get :index, params: { start_date: 7.days.from_now, end_date: 11.days.from_now } }
           it { expect(response).to render_template :index }
           it { expect(assigns(:contracts)).to match_array [ canceled_contract, waiting_payment_contract ] }
         end
 
         context 'with only start date' do
-          before { get :index, params: { start_date: DateTime.new(2018, 5, 3) } }
+          before { get :index, params: { start_date: 3.days.from_now } }
           it { expect(response).to render_template :index }
           it { expect(assigns(:contracts)).to match_array [ rejected_contract, waiting_confirmation_contract, canceled_contract, waiting_payment_contract ] }
         end
 
         context 'with only end date' do
-          before { get :index, params: { end_date: DateTime.new(2018, 5, 5) } }
+          before { get :index, params: { end_date: 5.days.from_now } }
           it { expect(response).to render_template :index }
           it { expect(assigns(:contracts)).to match_array [ under_analysis_contract, rejected_contract ] }
         end
