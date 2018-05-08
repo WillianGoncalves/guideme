@@ -9,9 +9,7 @@
 
 // And finally bootswatch style itself
 @import "bootswatch/cosmo/bootswatch";
-@import "card";
-@import "badge";
-@import "input";
+@import "cosmo/*";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";

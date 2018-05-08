@@ -1,75 +1,100 @@
-<h1>Welcome to Guideme</h1>
+<% content_for :stylesheet do %>
+  <%= stylesheet_link_tag 'pages/welcome/index' %>
+<% end %>
 
-<div class="row">
-  <legend>Guias com melhor avaliação</legend>
-  <div class="col-md-4">
-    <div class="card mb-4 box-shadow">
-      <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="http://placehold.it/348x225" data-holder-rendered="true">
-      <div class="card-body">
-        <h4>
-          <b>John Doe</b>
-          <small class="text-warning">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-          </small>
-        </h4>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum quae totam sit dicta aspernatur saepe illum cum accusamus consequuntur perferendis corporis consequatur culpa rerum ipsum, ipsam quod sint repudiandae.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Ver Perfil</a>
+<section class="jumbotron text-center">
+  <div class="container">
+    <a href="/">
+      <img class="logo" src="http://guideme.hu/wp-content/themes/guideme/res/logo.svg" alt="">
+    </a>
+
+    <p class="lead text-muted">Plataforma online de guias turísticos particulares.</p>
+
+    <% if !current_user %>
+      <p>
+        <%= link_to new_user_registration_path, class: 'btn btn-primary' do %>
+          <i class="fa fa-edit"></i> <%= t('devise.registrations.new.sign_up') %>
+        <% end %>
+        <%= link_to new_user_session_path, class: 'btn btn-default' do %>
+          <i class="fa fa-user"></i> <%= t('devise.sessions.new.sign_in') %>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <legend>Guias com melhor avaliação</legend>
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="http://placehold.it/348x225" data-holder-rendered="true">
+        <div class="card-body">
+          <h4>
+            <b>John Doe</b>
+            <small class="text-warning">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </small>
+          </h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum quae totam sit dicta aspernatur saepe illum cum accusamus consequuntur perferendis corporis consequatur culpa rerum ipsum, ipsam quod sint repudiandae.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Ver Perfil</a>
+            </div>
+            <small class="text-muted">9 mins</small>
           </div>
-          <small class="text-muted">9 mins</small>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card mb-4 box-shadow">
-      <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="http://placehold.it/348x225" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-      <div class="card-body">
-        <h4>
-          <b>John Doe</b>
-          <small class="text-warning">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="far fa-star"></i>
-          </small>
-        </h4>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum quae totam sit dicta aspernatur saepe illum cum accusamus consequuntur perferendis corporis consequatur culpa rerum ipsum, ipsam quod sint repudiandae.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Ver Perfil</a>
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="http://placehold.it/348x225" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
+        <div class="card-body">
+          <h4>
+            <b>John Doe</b>
+            <small class="text-warning">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="far fa-star"></i>
+            </small>
+          </h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum quae totam sit dicta aspernatur saepe illum cum accusamus consequuntur perferendis corporis consequatur culpa rerum ipsum, ipsam quod sint repudiandae.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Ver Perfil</a>
+            </div>
+            <small class="text-muted">9 mins</small>
           </div>
-          <small class="text-muted">9 mins</small>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card mb-4 box-shadow">
-      <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="http://placehold.it/348x225" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-      <div class="card-body">
-        <h4>
-          <b>John Doe</b>
-          <small class="text-warning">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-          </small>
-        </h4>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum quae totam sit dicta aspernatur saepe illum cum accusamus consequuntur perferendis corporis consequatur culpa rerum ipsum, ipsam quod sint repudiandae.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Ver Perfil</a>
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="http://placehold.it/348x225" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
+        <div class="card-body">
+          <h4>
+            <b>John Doe</b>
+            <small class="text-warning">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </small>
+          </h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore dolorum quae totam sit dicta aspernatur saepe illum cum accusamus consequuntur perferendis corporis consequatur culpa rerum ipsum, ipsam quod sint repudiandae.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a href="perfil-detalhes.html" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Ver Perfil</a>
+            </div>
+            <small class="text-muted">9 mins</small>
           </div>
-          <small class="text-muted">9 mins</small>
         </div>
       </div>
     </div>
