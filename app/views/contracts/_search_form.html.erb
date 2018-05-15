@@ -1,9 +1,9 @@
-<%= form_tag contracts_path, method: :get do %>
+<%= form_tag contracts_path, method: :get, class: 'form-group' do %>
   <h4><%= t('contracts.index.search.by_status') %>:</h4>
   <% Contract.statuses.map do |k, v| %>
-    <div>
-      <%= check_box_tag("statuses[]", k, @statuses.include?(k)) %>
-      <%= label_tag nil, "#{ t("activerecord.attributes.contract.statuses.#{k}") } (#{ count_contracts_by_status(k) })" %>
+    <div class="custom-control custom-checkbox">
+      <%= check_box_tag "statuses[]", k, @statuses.include?(k), { class: 'custom-control-input', id: "status_#{k}" } %>
+      <%= label_tag nil, "#{ t("activerecord.attributes.contract.statuses.#{k}") } (#{ count_contracts_by_status(k) })", { class: 'custom-control-label', for: "status_#{k}" } %>
     </div>
   <% end %>
   <hr />
