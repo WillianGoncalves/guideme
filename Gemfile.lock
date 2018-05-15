@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/thomaspark/bootswatch.git
+  revision: 3d6bc606e5ebc6cf1a86e98e14af271306ad5db7
+  specs:
+    bootswatch (4.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,17 +45,16 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
-    autoprefixer-rails (6.7.7.2)
+    autoprefixer-rails (8.4.1)
       execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+    bootstrap (4.1.1)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
     bootstrap-will_paginate (1.0.0)
       will_paginate
-    bootswatch-rails (3.3.5)
-      railties (>= 3.1)
     builder (3.2.3)
     byebug (10.0.1)
     cocoon (1.2.11)
@@ -112,6 +117,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
+    popper_js (1.12.9)
     puma (3.11.3)
     rack (2.0.4)
     rack-test (0.8.3)
@@ -215,9 +221,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (~> 3.3.7)
+  bootstrap (~> 4.1.1)
   bootstrap-will_paginate (= 1.0.0)
-  bootswatch-rails
+  bootswatch!
   byebug
   cocoon
   coffee-rails (~> 4.2)
@@ -234,6 +240,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   pg (~> 0.18)
+  popper_js (~> 1.12.9)
   puma (~> 3.0)
   rails (~> 5.1.5)
   rails-controller-testing

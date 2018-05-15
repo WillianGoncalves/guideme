@@ -1,18 +1,7 @@
-//Import bootstrap-sprockets
-@import "bootstrap-sprockets";
-
-// Import cerulean variables
-@import "bootswatch/cosmo/variables";
-
-// Then bootstrap itself
+@import "cosmo/variables";
 @import "bootstrap";
-
-// And finally bootswatch style itself
-@import "bootswatch/cosmo/bootswatch";
-@import "cosmo/*";
-
+@import "cosmo/bootswatch";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
 @import "layout";
 @import "shared";
