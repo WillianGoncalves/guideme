@@ -1,12 +1,23 @@
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+    height: 100vh;
 }
-main { flex: 1 0 auto; }
+
+header { grid-area: header; }
+
+main {
+  grid-area: main;
+  margin: 2rem 0;
+}
+
 footer {
-  flex-shrink: 0;
+  grid-area: footer;
+  width: 100%;
   padding: 30px;
   background-color: #f0f0f0;
-  margin-top: $line-height-computed;
 }

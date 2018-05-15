@@ -1,53 +1,46 @@
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="#">Guideme</a>
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
+<header class="navbar navbar-expand-lg navbar-dark bg-secondary">
+  <%= link_to 'Guideme', root_path, class: 'navbar-brand' %>
 
-      <% if user_signed_in? %>
-        <ul class="nav navbar-nav">
-          <li>
-            <% if current_user.admin? %>
-              <%= link_to guides_path(status: :awaiting_for_approval) do %>
-                <%= t('guides.pending_approvals') %> (<%= awaiting_for_approval_count %>)
-              <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse">
+
+    <% if user_signed_in? %>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <% if current_user.admin? %>
+            <%= link_to guides_path(status: :awaiting_for_approval), class: 'nav-link' do %>
+              <%= t('guides.pending_approvals') %> (<%= awaiting_for_approval_count %>)
             <% end %>
-          </li>
-          <li><%= link_to t('guides.search.link'), search_guides_path %></li>
-          <li><%= link_to t('contracts.index.title'), contracts_path %></li>
-        </ul>
+          <% end %>
+        </li>
+        <li class="nav-item"><%= link_to t('guides.search.link'), search_guides_path, class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to t('contracts.index.title'), contracts_path, class: 'nav-link' %></li>
+      </ul>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.name %> <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <% if current_user.guide? or current_user.guide_candidate? %>
-                  <%= link_to t('guides.show'), user_guide_path(current_user, current_user.guide) %>
-                <% else %>
-                  <%= link_to t('users.edit'), edit_user_registration_path(current_user) %>
-                <% end %>
-              </li>
-              <li role="separator" class="divider"></li>
-              <li>
-                <%= link_to t('users.sign_out'), destroy_user_session_path, method: :delete %>
-              </li>
-            </ul>
-          </li>
-        </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.name %> <span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            <% if current_user.guide? or current_user.guide_candidate? %>
+              <%= link_to t('guides.show'), user_guide_path(current_user, current_user.guide), class: 'dropdown-item' %>
+            <% else %>
+              <%= link_to t('users.edit'), edit_user_registration_path(current_user), class: 'dropdown-item' %>
+            <% end %>
+            <%= link_to t('users.sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+          </div>
+        </li>
+      </ul>
 
-        <% unless current_user.guide.present? %>
-          <%= link_to t('guides.new'), new_user_guide_path(current_user), class: "btn btn-primary navbar-btn navbar-right" %>
-        <% end %>
+      <% unless current_user.guide.present? %>
+        <%= link_to t('guides.new'), new_user_guide_path(current_user), class: "btn btn-primary navbar-btn navbar-right" %>
       <% end %>
+    <% end %>
 
-    </div>
   </div>
-</div>
+</header>
 

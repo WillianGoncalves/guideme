@@ -7,7 +7,7 @@
 
   <div class="col-sm-8">
     <div class="center">
-      <%= will_paginate %>
+      <%= will_paginate renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
     </div>
 
     <% @contracts.each do |contract| %>
@@ -15,7 +15,7 @@
     <% end %>
 
     <div class="center">
-      <%= will_paginate %>
+      <%= will_paginate renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
     </div>
   </div>
 </div>
